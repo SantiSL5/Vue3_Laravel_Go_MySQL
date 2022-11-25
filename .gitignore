@@ -1,0 +1,10 @@
+/data
+**/.env.local
+**/.env.local.php
+**/.env.*.local
+**/.env
+**/public/bundles
+**/var
+**/vendor
+**/node_modules
+

@@ -1,0 +1,80 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_DATABASE: $MYSQL_DATABASE
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+    ports:
+      - "3306:3306"
+    networks:
+      - namazu_network
+    volumes:
+      - ./data/db:/var/lib/mysql
+    healthcheck:
+      test: mysqladmin ping -h localhost -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+      interval: 5s
+      timeout: 30s
+      retries: 5
+      start_period: 2s
+
+  vue3:
+    build:
+      context: ./build
+      target: vue
+      args:
+        UID: 1000
+    container_name: vue3
+    working_dir: /var/www
+    networks:
+      - namazu_network
+    volumes:
+      - ./frontend/vue3:/var/www
+    ports:
+      - 8080:8080
+  
+  laravel:
+    build:
+      context: ./build
+      target: laravel
+      args:
+          UID: ${UID}
+    container_name: laravel
+    tty: true
+    working_dir: /var/www
+    networks:
+      - namazu_network
+    volumes:
+      - ./backend/laravel:/var/www
+    ports:
+      - 6001:6001
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  gingonic:
+    build:
+      context: ./build
+      target: gingonic
+      args:
+        UID: ${UID}
+    container_name: gingonic
+    networks:
+      - namazu_network
+    volumes:
+      - ./backend/go:/go/src/api
+    ports:
+      - 4000:4000
+    tty:
+      true
+    depends_on:
+      mysql:
+        condition: service_healthy
+      laravel:
+        condition: service_started
+networks:
+  namazu_network:
