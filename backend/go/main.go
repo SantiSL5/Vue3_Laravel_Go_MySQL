@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"namazu/Config"
 	"namazu/Routes"
+	// "namazu/Models"
 
 	"github.com/jinzhu/gorm"
 )

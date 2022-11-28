@@ -3,7 +3,7 @@ package Table
 import (
 	"fmt"
 	"net/http"
-	"namazu/Models"
+	// "namazu/Models"
 
 	"github.com/gin-gonic/gin"
 )

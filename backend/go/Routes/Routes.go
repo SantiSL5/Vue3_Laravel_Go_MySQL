@@ -1,35 +1,36 @@
 package Routes
 
 import (
-	"namazu/Table"
-	"net/http"
-	"fmt"
+	"namazu/Category"
+	// "namazu/Table"
+	// "net/http"
+	// "fmt"
 	"github.com/gin-gonic/gin"
 )
 
 //SetupRouter ... Configure routes
 func SetupRouter() *gin.Engine {
-	// r := gin.Default()
-
-	// grp1 := r.Group("/api")
-	// {
-	// 	grp1.GET("table", Controllers.GetUsers)
-	// 	grp1.POST("table", Controllers.CreateUser)
-	// 	grp1.GET("table/:id", Controllers.GetUserByID)
-	// 	grp1.PUT("table/:id", Controllers.UpdateUser)
-	// 	grp1.DELETE("table/:id", Controllers.DeleteUser)
-	// }
-	// return r
-
-
-
 	r := gin.Default()
 
-	r.Use(CORS)
+	grp1 := r.Group("/api")
+	{
+		// grp1.GET("table", Category.GetCategories)
+		grp1.POST("category", Category.CreateCategory)
+		// grp1.GET("table/:id", Category.GetCategoryByID)
+		// grp1.PUT("table/:id", Category.UpdateCategory)
+		// grp1.DELETE("table/:id", Category.DeleteCategory)
+	}
+	return r
 
-	api := r.Group("/api");
 
-	Table.TablesRouting(api.Group("/table"))
+
+	// r := gin.Default()
+
+	// r.Use(CORS)
+
+	// api := r.Group("/api");
+
+	// Table.TablesRouting(api.Group("/table"))
 	// courts.CourtsRouting(api.Group("/courts"))
 	// reservations.ReservationRouting(api.Group("/reservations"))
 	// users.UsersRouting(api.Group("/users"))
