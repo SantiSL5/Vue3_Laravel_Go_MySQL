@@ -17,7 +17,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        return CategoryResource::collection(Category::all());
     }
 
     /**
@@ -38,11 +38,7 @@ class CategoryController extends Controller
      */
     public function store(CreateCategory $request)
     {
-        //
-        // return response()->json($request);
-        // return response()->json("hola");
         return CategoryResource::make(Category::create($request->validated()));
-
     }
 
     /**
@@ -51,9 +47,9 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($id)
     {
-        //
+        return CategoryResource::make(Category::where('id', $id)->firstOrFail());
     }
 
     /**
@@ -74,9 +70,18 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCategory $request, Category $category)
+    public function update(UpdateCategory $request, $id)
     {
-        //
+        $update = Category::where('id', $id)->update($request->validated());
+        if ($update == 1) {
+            return response()->json([
+                "Message" => "Updated correctly"
+            ]);
+        } else {
+            return response()->json([
+                "Status" => "Not found"
+            ], 404);
+        };
     }
 
     /**
@@ -85,8 +90,18 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        $delete = Category::where('id', $id)->delete();
+
+        if ($delete == 1) {
+            return response()->json([
+                "Message" => "Deleted correctly"
+            ], 200);
+        } else {
+            return response()->json([
+                "Status" => "Not found"
+            ], 404);
+        }
     }
 }

@@ -22,19 +22,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('category')->group(function () {
-    Route::get('/', [CategoryController::class, 'prueba']);
-    Route::get('/:id', [CategoryController::class, 'prueba']);
+    Route::get('/', [CategoryController::class, 'index']);
+    Route::get('/{id}', [CategoryController::class, 'show']);
     Route::post('/', [CategoryController::class, 'store']);
-    Route::put('/:id', [CategoryController::class, 'prueba']);
-    Route::delete('/', [CategoryController::class, 'prueba']);
+    Route::put('/{id}', [CategoryController::class, 'update']);
+    Route::delete('/{id}', [CategoryController::class, 'destroy']);
 });
 
 Route::prefix('table')->group(function () {
-    Route::get('/', [TableController::class, 'prueba']);
-    Route::get('/:id', [TableController::class, 'prueba']);
-    Route::post('/', [TableController::class, 'prueba']);
-    Route::put('/:id', [TableController::class, 'prueba']);
-    Route::delete('/', [TableController::class, 'prueba']);
+    Route::get('/', [TableController::class, 'index']);
+    Route::get('/{id}', [TableController::class, 'show']);
+    Route::post('/', [TableController::class, 'store']);
+    Route::put('/{id}', [TableController::class, 'update']);
+    Route::delete('/{id}', [TableController::class, 'destroy']);
 });
 
 // Route::get('/mesa', [BookController::class, 'prueba']);
