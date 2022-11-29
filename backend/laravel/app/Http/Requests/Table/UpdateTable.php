@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Category;
+namespace App\Http\Requests\Table;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateCategory extends FormRequest
+class UpdateTable extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,10 @@ class UpdateCategory extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['optional'],
-            'photo' => ['optional']
+            'code' => ['sometimes'],
+            'category' => ['sometimes'],
+            'capacity' => ['sometimes'],
+            'reserved' => ['sometimes'],
         ];
     }
 }

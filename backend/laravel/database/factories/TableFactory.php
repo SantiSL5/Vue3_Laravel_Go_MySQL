@@ -19,8 +19,8 @@ class TableFactory extends Factory
         return [
             'id' =>fake()->uuid(),
             'code' => "12",
-            'category' => "",
-            'capacity' => "4", // password
+            'category' => "hola",
+            'capacity' => "4",
             'reserved' => false,
         ];
     }

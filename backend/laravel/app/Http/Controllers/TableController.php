@@ -2,23 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreTableRequest;
-use App\Http\Requests\UpdateTableRequest;
+use App\Http\Requests\Table\CreateTable;
+use App\Http\Requests\Table\UpdateTable;
+use App\Http\Resources\TableResource;
 use App\Models\Table;
+use App\Models\Category;
 
-use App\Service\BookService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-
 
 class TableController extends Controller
 {
-
-    public function prueba(): JsonResponse
-    {
-        return response()->json("hola");
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +19,8 @@ class TableController extends Controller
      */
     public function index()
     {
-        return response()->json("hola");
+        return TableResource::collection(Table::all());
+        // return TableResource::collection(Table::all());
     }
 
     /**
@@ -45,9 +39,22 @@ class TableController extends Controller
      * @param  \App\Http\Requests\StoreTableRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTableRequest $request)
+    public function store(CreateTable $request)
     {
-        //
+        try
+        {
+            Category::where('id', $request->get('category'))->firstOrFail();
+        }
+        catch (\Exception $e) {
+            return response()->json("Category doesn't exist");
+        }
+
+        try
+        {
+            return TableResource::make(Table::create($request->validated()));        }
+        catch (\Exception $e) {
+            return response()->json("Table code already exists");
+        }   
     }
 
     /**
@@ -56,9 +63,9 @@ class TableController extends Controller
      * @param  \App\Models\Table  $table
      * @return \Illuminate\Http\Response
      */
-    public function show(Table $table)
+    public function show($id)
     {
-        //
+        return TableResource::make(Table::where('id', $id)->firstOrFail());
     }
 
     /**
@@ -79,9 +86,37 @@ class TableController extends Controller
      * @param  \App\Models\Table  $table
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateTableRequest $request, Table $table)
+    public function update(UpdateTable $request, $id)
     {
-        //
+        if ($request->get('category')) {
+            try
+            {
+                Category::where('id', $request->get('category'))->firstOrFail();
+            }
+            catch (\Exception $e) {
+                return response()->json("Category doesn't exist");
+            }     
+        }
+
+        if ($request->get('code')) {
+            try
+            {
+                Table::where('code', $request->get('code'))->firstOrFail();
+                return response()->json("Table code already exists");
+            }
+            catch (\Exception $e) {
+                $update = Table::where('id', $id)->update($request->validated());
+                if ($update == 1) {
+                    return response()->json([
+                        "Message" => "Updated correctly"
+                    ]);
+                } else {
+                    return response()->json([
+                        "Status" => "Not found"
+                    ], 404);
+                };
+            }  
+        }
     }
 
     /**
@@ -90,8 +125,18 @@ class TableController extends Controller
      * @param  \App\Models\Table  $table
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Table $table)
+    public function destroy($id)
     {
-        //
+        $delete = Table::where('id', $id)->delete();
+
+        if ($delete == 1) {
+            return response()->json([
+                "Message" => "Deleted correctly"
+            ], 200);
+        } else {
+            return response()->json([
+                "Status" => "Not found"
+            ], 404);
+        }
     }
 }

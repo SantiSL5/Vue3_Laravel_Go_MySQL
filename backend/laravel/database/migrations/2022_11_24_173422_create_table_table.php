@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('tables', function (Blueprint $table) {
             $table->id("id");
             $table->timestamps();
-            $table->integer("code");
-            $table->foreignId('category_id')->constraint('category');
+            $table->integer("code")->unique();
+            $table->foreignId('category')->constraint('category');
             $table->integer("capacity");
             $table->boolean("reserved");
         });

@@ -9,12 +9,13 @@ class Category extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name'
+        'name',
+        'photo'
     ];
 
-    // public function mesas(): BelongsToMany
-    // {
-    //     return $this->belongsToMany(Mesa::class, 'mesas_categories', 'category_id', 'mesa_id');
-    // }
+    public function categories()
+    {
+        return $this->hasMany(Table::class);
+    }
 
 }
