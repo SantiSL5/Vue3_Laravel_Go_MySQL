@@ -1,38 +1,60 @@
 package Category
 
 import (
-	"fmt"
+
+	// "namazu/Category/CategoryModel"
+
 	"net/http"
-	// "namazu/Category"
 
 	"github.com/gin-gonic/gin"
 )
 
-// //GetCategories ... Get all categories
-// func GetCategories(c *gin.Context) {
-// 	var category [] Category
-// 	err := GetAllCategories(&category)
+//GetCategories ... Get all categories
+func GetCategories(c *gin.Context) {
+	var categories []CategoryModel
+
+	categories = GetAllCategoriesDB(c)
+
+	serializer := CategoriesSerializer{c, categories}
+
+	c.JSON(http.StatusOK, serializer.Response())
+
+	// println(categories)
+	// err := GetAllCategories(&categories)
+	// if err != nil {
+	// 	c.AbortWithStatus(http.StatusNotFound)
+	// } else {
+	// 	c.JSON(http.StatusOK, category)
+	// }
+}
+
+func GetOneCategoryByID(c *gin.Context) {
+	var category CategoryModel
+	var id int
+
+	id = c.Query("id")
+
+	category = GetOneCategory(id, c)
+
+	serializer := CategorySerializer{c, category}
+
+	c.JSON(http.StatusOK, serializer.Response())
+}
+
+//CreateCategory ... Create Category
+// func CreateCategory(c *gin.Context) {
+// 	var category Category
+// 	c.BindJSON(&category)
+// 	fmt.Println("Hello World!")
+
+// 	err := CreateCategoryModel(&category)
 // 	if err != nil {
+// 		fmt.Println(err.Error())
 // 		c.AbortWithStatus(http.StatusNotFound)
 // 	} else {
 // 		c.JSON(http.StatusOK, category)
 // 	}
 // }
-
-//CreateCategory ... Create Category
-func CreateCategory(c *gin.Context) {
-	var category Category
-	c.BindJSON(&category)
-	fmt.Println("Hello World!")
-
-	err := CreateCategoryModel(&category)
-	if err != nil {
-		fmt.Println(err.Error())
-		c.AbortWithStatus(http.StatusNotFound)
-	} else {
-		c.JSON(http.StatusOK, category)
-	}
-}
 
 // //GetCategoryByID ... Get the category by id
 // func GetCategoryByID(c *gin.Context) {

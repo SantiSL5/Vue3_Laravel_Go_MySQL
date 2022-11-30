@@ -3,9 +3,10 @@ package Config
 import (
 	"fmt"
 	"os"
+	"strconv"
+
 	"github.com/jinzhu/gorm"
 	"github.com/joho/godotenv"
-	"strconv"
 )
 
 var DB *gorm.DB
@@ -20,23 +21,16 @@ type DBConfig struct {
 }
 
 func BuildDBConfig() *DBConfig {
-	
-	godotenv.Load();
 
-	fmt.Println("asdad")
-
+	godotenv.Load()
 
 	s := os.Getenv("DB_PORT")
 
-    v, err := strconv.Atoi(s)
-	if err != nil{
-		fmt.Println(err)
+	v, err := strconv.Atoi(s)
+	if err != nil {
+		return nil
 	}
-    
-	// if err != nil {
-    //     return 0, err
-	// }
-	
+
 	dbConfig := DBConfig{
 		Host:     os.Getenv("DB_HOST"),
 		Port:     v,
@@ -44,6 +38,7 @@ func BuildDBConfig() *DBConfig {
 		Password: os.Getenv("DB_PASSWORD"),
 		DBName:   os.Getenv("DB_DATABASE"),
 	}
+
 	return &dbConfig
 }
 

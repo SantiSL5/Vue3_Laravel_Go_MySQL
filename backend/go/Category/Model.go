@@ -1,39 +1,60 @@
 package Category
 
 import (
-	"github.com/jinzhu/gorm"
+	"fmt"
 	"namazu/Config"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
-type Category struct {
-	gorm.Model
-	Id      	uint   	`json:"id"`
-	Code    	int 	`json:"code"`
-	Category   	string 	`json:"category"`
-	Capacity   	string 	`json:"capacity"`
-	Reserved 	bool 	`json:"reserved"`
+type CategoryModel struct {
+	Id    uint   `json:"id"`
+	Name  string `json:"name"`
+	Photo string `json:"photo"`
+	// Created_at string `json:"created_at"`
+	// Updated_at string `json:"updated_at"`
 }
 
-func (b *Category) CategoryName() string {
-	return "category"
+func (b *CategoryModel) TableName() string {
+	return "categories"
 }
 
+//GetAllCategories Fetch all category data
+func GetAllCategoriesDB(c *gin.Context) []CategoryModel {
 
-// //GetAllCategories Fetch all category data
-// func GetAllCategories(able *[]Category) (err error) {
-// 	if err = Config.DB.Find(category).Error; err != nil {
+	var categories []CategoryModel
+
+	if err := Config.DB.Find(&categories).Error; err != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+		fmt.Println("Status:", err)
+	}
+
+	return categories
+
+}
+
+func GetOneCategoryDB(id int, c *gin.Context) CategoryModel {
+
+	var category CategoryModel
+
+	if err := Config.DB.Where("ID = ?", id).Find(&category).Error; err != nil {
+		fmt.Println(err.Error())
+		c.AbortWithStatus(http.StatusNotFound)
+		return category
+	} else {
+		return category
+	}
+
+}
+
+//CreateCategory ... Insert New data
+// func CreateCategoryModel(category *Category) (err error) {
+// 	if err = Config.DB.Create(category).Error; err != nil {
 // 		return err
 // 	}
 // 	return nil
 // }
-
-//CreateCategory ... Insert New data
-func CreateCategoryModel(category *Category) (err error) {
-	if err = Config.DB.Create(category).Error; err != nil {
-		return err
-	}
-	return nil
-}
 
 // //GetCategoryByID ... Fetch only one category by Id
 // func GetCategoryByID(category *Category, id string) (err error) {
