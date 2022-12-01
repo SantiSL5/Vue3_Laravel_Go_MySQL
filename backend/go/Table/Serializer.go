@@ -7,11 +7,12 @@ import (
 )
 
 type TableResponse struct {
-	Id       uint                   `json:"id"`
-	Code     int                    `json:"code"`
-	Category Category.CategoryModel `json:"category"`
-	Capacity string                 `json:"capacity"`
-	Reserved bool                   `json:"reserved"`
+	Id              uint                   `json:"id"`
+	Category        uint                   `json:"category"`
+	Code            int                    `json:"code"`
+	Capacity        string                 `json:"capacity"`
+	Reserved        bool                   `json:"reserved"`
+	CategoryContent Category.CategoryModel `json:"categorycontent"`
 }
 
 type TableSerializer struct {
@@ -26,11 +27,12 @@ type TablesSerializer struct {
 
 func (ss *TableSerializer) Response() TableResponse {
 	response := TableResponse{
-		Id:       ss.table.Id,
-		Code:     ss.table.Code,
-		Category: ss.table.Category,
-		Capacity: ss.table.Capacity,
-		Reserved: ss.table.Reserved,
+		Id:              ss.table.Id,
+		Code:            ss.table.Code,
+		Category:        ss.table.Category,
+		Capacity:        ss.table.Capacity,
+		Reserved:        ss.table.Reserved,
+		CategoryContent: ss.table.CategoryContent,
 	}
 
 	return response

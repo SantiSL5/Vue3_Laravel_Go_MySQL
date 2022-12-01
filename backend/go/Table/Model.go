@@ -11,11 +11,12 @@ import (
 )
 
 type TableModel struct {
-	Id       uint                   `json:"id"`
-	Code     int                    `json:"code"`
-	Category Category.CategoryModel	`gorm:"ForeignKey:ID" json:"category"`
-	Capacity string                 `json:"capacity"`
-	Reserved bool                   `json:"reserved"`
+	Id              uint                   `json:"id"`
+	Category        uint                   `gorm:"ForeignKey:ID" json:"category"`
+	Code            int                    `json:"code"`
+	Capacity        string                 `json:"capacity"`
+	Reserved        bool                   `json:"reserved"`
+	CategoryContent Category.CategoryModel `gorm:"ForeignKey:Category" json:"categorycontent"`
 }
 
 func (b *TableModel) TableName() string {
@@ -27,7 +28,7 @@ func GetAllTablesDB(c *gin.Context) []TableModel {
 
 	var tables []TableModel
 
-	if err := Config.DB.Preload("Category").Find(&tables).Error; err != nil {
+	if err := Config.DB.Preload("CategoryContent").Find(&tables).Error; err != nil {
 		c.AbortWithStatus(http.StatusNotFound)
 		fmt.Println("Status:", err)
 	}
@@ -40,7 +41,7 @@ func GetOneTableDB(id int, c *gin.Context) TableModel {
 
 	var table TableModel
 
-	if err := Config.DB.Where("ID = ?", id).Find(&table).Error; err != nil {
+	if err := Config.DB.Preload("CategoryContent").Where("ID = ?", id).Find(&table).Error; err != nil {
 		fmt.Println(err.Error())
 		c.AbortWithStatus(http.StatusNotFound)
 		return table
