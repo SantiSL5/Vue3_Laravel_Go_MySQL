@@ -28,17 +28,20 @@ func GetCategories(c *gin.Context) {
 	// }
 }
 
-func GetOneCategoryByID(c *gin.Context) {
-	var category CategoryModel
-	var id int
+func GetCategoryByID(c *gin.Context) {
 
-	id = c.Query("id")
+	println(c.Query("id"))
 
-	category = GetOneCategory(id, c)
+	// var category CategoryModel
+	// var id int
 
-	serializer := CategorySerializer{c, category}
+	// id = c.Query("id")
 
-	c.JSON(http.StatusOK, serializer.Response())
+	// category = GetOneCategoryDB(id, c)
+
+	// serializer := CategorySerializer{c, category}
+
+	// c.JSON(http.StatusOK, serializer.Response())
 }
 
 //CreateCategory ... Create Category

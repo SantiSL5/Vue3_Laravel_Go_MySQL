@@ -2,7 +2,8 @@ package Routes
 
 import (
 	"namazu/Category"
-	// "namazu/Table"
+	"namazu/Table"
+
 	// "net/http"
 	// "fmt"
 	"github.com/gin-gonic/gin"
@@ -14,9 +15,12 @@ func SetupRouter() *gin.Engine {
 
 	grp1 := r.Group("/api")
 	{
+		grp1.GET("table", Table.GetTables)
+		grp1.GET("table/:id", Table.GetTableByID)
+
 		grp1.GET("category", Category.GetCategories)
+		grp1.GET("category/:id", Category.GetCategoryByID)
 		// grp1.POST("category", Category.CreateCategory)
-		grp1.GET("category", Category.GetCategoryByID)
 		// grp1.PUT("table/:id", Category.UpdateCategory)
 		// grp1.DELETE("table/:id", Category.DeleteCategory)
 	}

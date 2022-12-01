@@ -2,17 +2,20 @@ package Table
 
 import (
 	"fmt"
+	Category "namazu/Category"
 	"namazu/Config"
+	"net/http"
 
+	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 )
 
 type TableModel struct {
-	Id      	uint   	`json:"id"`
-	Code    	int 	`json:"code"`
-	Category   	string 	`json:"category"`
-	Capacity   	string 	`json:"capacity"`
-	Reserved 	bool 	`json:"reserved"`
+	Id       uint                   `json:"id"`
+	Code     int                    `json:"code"`
+	Category Category.CategoryModel `gorm:"ForeignKey:Id" json:"category"`
+	Capacity string                 `json:"capacity"`
+	Reserved bool                   `json:"reserved"`
 }
 
 func (b *TableModel) TableName() string {
@@ -20,38 +23,29 @@ func (b *TableModel) TableName() string {
 }
 
 //GetAllTables Fetch all table data
-func GetAllTables(able *[]Table) (err error) {
-	if err = Config.DB.Find(table).Error; err != nil {
-		return err
+func GetAllTablesDB(c *gin.Context) []TableModel {
+
+	var tables []TableModel
+
+	if err := Config.DB.Find(&tables).Error; err != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+		fmt.Println("Status:", err)
 	}
-	return nil
+
+	return tables
+
 }
 
-//CreateTable ... Insert New data
-func CreateTable(table *Table) (err error) {
-	if err = Config.DB.Create(table).Error; err != nil {
-		return err
+func GetOneTableDB(id int, c *gin.Context) TableModel {
+
+	var table TableModel
+
+	if err := Config.DB.Where("ID = ?", id).Find(&table).Error; err != nil {
+		fmt.Println(err.Error())
+		c.AbortWithStatus(http.StatusNotFound)
+		return table
+	} else {
+		return table
 	}
-	return nil
-}
 
-//GetTableByID ... Fetch only one table by Id
-func GetTableByID(table *Table, id string) (err error) {
-	if err = Config.DB.Where("id = ?", id).First(table).Error; err != nil {
-		return err
-	}
-	return nil
-}
-
-//UpdateTable ... Update table
-func UpdateTable(table *Table, id string) (err error) {
-	fmt.Println(table)
-	Config.DB.Save(table)
-	return nil
-}
-
-//DeleteTable ... Delete table
-func DeleteTable(table *Table, id string) (err error) {
-	Config.DB.Where("id = ?", id).Delete(table)
-	return nil
 }
