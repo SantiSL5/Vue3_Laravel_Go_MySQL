@@ -20,7 +20,6 @@ class TableController extends Controller
     public function index()
     {
         return TableResource::collection(Table::all());
-        // return TableResource::collection(Table::all());
     }
 
     /**
@@ -41,20 +40,17 @@ class TableController extends Controller
      */
     public function store(CreateTable $request)
     {
-        try
-        {
+        try {
             Category::where('id', $request->get('category'))->firstOrFail();
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json("Category doesn't exist");
         }
 
-        try
-        {
-            return TableResource::make(Table::create($request->validated()));        }
-        catch (\Exception $e) {
+        try {
+            return TableResource::make(Table::create($request->validated()));
+        } catch (\Exception $e) {
             return response()->json("Table code already exists");
-        }   
+        }
     }
 
     /**
@@ -65,6 +61,11 @@ class TableController extends Controller
      */
     public function show($id)
     {
+        try {
+            return TableResource::make(Table::where('id', $id)->firstOrFail());
+        } catch (\Exception $e) {
+            return response()->json("Table doesn't exist");
+        }
         return TableResource::make(Table::where('id', $id)->firstOrFail());
     }
 
@@ -89,22 +90,18 @@ class TableController extends Controller
     public function update(UpdateTable $request, $id)
     {
         if ($request->get('category')) {
-            try
-            {
+            try {
                 Category::where('id', $request->get('category'))->firstOrFail();
-            }
-            catch (\Exception $e) {
+            } catch (\Exception $e) {
                 return response()->json("Category doesn't exist");
-            }     
+            }
         }
 
         if ($request->get('code')) {
-            try
-            {
+            try {
                 Table::where('code', $request->get('code'))->firstOrFail();
                 return response()->json("Table code already exists");
-            }
-            catch (\Exception $e) {
+            } catch (\Exception $e) {
                 $update = Table::where('id', $id)->update($request->validated());
                 if ($update == 1) {
                     return response()->json([
@@ -115,7 +112,7 @@ class TableController extends Controller
                         "Status" => "Not found"
                     ], 404);
                 };
-            }  
+            }
         }
     }
 

@@ -24,8 +24,8 @@ class UpdateCategory extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['optional'],
-            'photo' => ['optional']
+            'name' => ['sometimes'],
+            'photo' => ['sometimes']
         ];
     }
 }

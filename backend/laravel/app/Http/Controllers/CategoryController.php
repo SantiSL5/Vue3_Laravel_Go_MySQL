@@ -38,7 +38,11 @@ class CategoryController extends Controller
      */
     public function store(CreateCategory $request)
     {
-        return CategoryResource::make(Category::create($request->validated()));
+        try {
+            return CategoryResource::make(Category::create($request->validated()));
+        } catch (\Exception $e) {
+            return response()->json("Category already exists");
+        }
     }
 
     /**
@@ -49,7 +53,11 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        return CategoryResource::make(Category::where('id', $id)->firstOrFail());
+        try {
+            return CategoryResource::make(Category::where('id', $id)->firstOrFail());
+        } catch (\Exception $e) {
+            return response()->json("Category doesn't exist");
+        }
     }
 
     /**
@@ -72,16 +80,21 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategory $request, $id)
     {
-        $update = Category::where('id', $id)->update($request->validated());
-        if ($update == 1) {
-            return response()->json([
-                "Message" => "Updated correctly"
-            ]);
-        } else {
-            return response()->json([
-                "Status" => "Not found"
-            ], 404);
-        };
+
+        try {
+            $update = Category::where('id', $id)->update($request->validated());
+            if ($update == 1) {
+                return response()->json([
+                    "Message" => "Updated correctly"
+                ]);
+            } else {
+                return response()->json([
+                    "Status" => "Not found"
+                ], 404);
+            };
+        } catch (\Exception $e) {
+            return response()->json("Category already exists");
+        }
     }
 
     /**

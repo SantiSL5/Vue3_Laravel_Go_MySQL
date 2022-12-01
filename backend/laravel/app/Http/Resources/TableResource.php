@@ -10,11 +10,11 @@ class TableResource extends JsonResource
     public function toArray($request)
     {
         if ($request->get('category')) {
-            $category=Category::where('id', $request->get('category'))->firstOrFail();
+            $category = Category::where('id', $request->get('category'))->firstOrFail();
         } else {
-            $category=Category::where('id', $this->category)->firstOrFail();
+            $category = Category::where('id', $this->category)->firstOrFail();
         }
-        
+
         return [
             'id' => $this->id,
             'code' => $this->code,
