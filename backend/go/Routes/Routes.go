@@ -13,18 +13,10 @@ import (
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
 
-	grp1 := r.Group("/api")
-	{
-		grp1.GET("table", Table.GetTables)
-		grp1.GET("table/:id", Table.GetTableByID)
+	api := r.Group("/api");
 
-		grp1.GET("category", Category.GetCategories)
-		grp1.GET("category/:id", Category.GetCategoryByID)
-		// grp1.POST("category", Category.CreateCategory)
-		// grp1.PUT("table/:id", Category.UpdateCategory)
-		// grp1.DELETE("table/:id", Category.DeleteCategory)
-	}
-	return r
+	Category.CategoryRouting(api.Group("/category"))
+	Table.TableRouting(api.Group("/table"))
 
 	// r := gin.Default()
 
