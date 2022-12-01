@@ -2,6 +2,7 @@ package Table
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -25,16 +26,19 @@ func GetTables(c *gin.Context) {
 }
 
 func GetTableByID(c *gin.Context) {
-	// var table TableModel
-	// var id int
+	s:=c.Param("id")
+	var table TableModel
+	var id int
+	id, err := strconv.Atoi(s)
+	if err != nil {
+		println("error")
+	}
 
-	// id = c.Query("id")
+	table = GetOneTableDB(id, c)
 
-	// table = GetOneTableDB(id, c)
+	serializer := TableSerializer{c, table}
 
-	// serializer := TableSerializer{c, table}
-
-	// c.JSON(http.StatusOK, serializer.Response())
+	c.JSON(http.StatusOK, serializer.Response())
 }
 
 //GetTables ... Get all tables

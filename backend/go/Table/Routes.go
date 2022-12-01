@@ -6,5 +6,5 @@ import (
 
 func TableRouting(router *gin.RouterGroup) {
 	router.GET("/", GetTables)
-	router.GET("/:id", GetTableByID)
+	router.GET(":id", GetTableByID)
 }

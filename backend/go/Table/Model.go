@@ -13,7 +13,7 @@ import (
 type TableModel struct {
 	Id       uint                   `json:"id"`
 	Code     int                    `json:"code"`
-	Category Category.CategoryModel `gorm:"ForeignKey:Id" json:"category"`
+	Category Category.CategoryModel	`gorm:"ForeignKey:ID" json:"category"`
 	Capacity string                 `json:"capacity"`
 	Reserved bool                   `json:"reserved"`
 }
@@ -27,7 +27,7 @@ func GetAllTablesDB(c *gin.Context) []TableModel {
 
 	var tables []TableModel
 
-	if err := Config.DB.Find(&tables).Error; err != nil {
+	if err := Config.DB.Preload("Category").Find(&tables).Error; err != nil {
 		c.AbortWithStatus(http.StatusNotFound)
 		fmt.Println("Status:", err)
 	}
