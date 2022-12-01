@@ -3,8 +3,9 @@ package Category
 import (
 
 	// "namazu/Category/CategoryModel"
-	"strconv"
+
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -14,6 +15,8 @@ func GetAllCategories(c *gin.Context) {
 	var categories []CategoryModel
 
 	categories = GetAllCategoriesDB(c)
+
+	println(categories)
 
 	serializer := CategoriesSerializer{c, categories}
 
@@ -30,7 +33,7 @@ func GetAllCategories(c *gin.Context) {
 
 func GetCategoryByID(c *gin.Context) {
 
-	s:=c.Param("id")
+	s := c.Param("id")
 	var category CategoryModel
 	var id int
 	id, err := strconv.Atoi(s)
@@ -38,11 +41,15 @@ func GetCategoryByID(c *gin.Context) {
 		println("error")
 	}
 
-	category = GetOneCategoryDB(id, c)
+	category, err = GetOneCategoryDB(id, c)
 
-	serializer := CategorySerializer{c, category}
+	if err != nil {
+		c.JSON(http.StatusNotFound, "Category doesn't exist")
+	} else {
+		serializer := CategorySerializer{c, category}
+		c.JSON(http.StatusOK, serializer.Response())
+	}
 
-	c.JSON(http.StatusOK, serializer.Response())
 }
 
 //CreateCategory ... Create Category

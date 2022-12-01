@@ -37,16 +37,15 @@ func GetAllTablesDB(c *gin.Context) []TableModel {
 
 }
 
-func GetOneTableDB(id int, c *gin.Context) TableModel {
+func GetOneTableDB(id int, c *gin.Context) (TableModel, error) {
 
 	var table TableModel
 
-	if err := Config.DB.Preload("CategoryContent").Where("ID = ?", id).Find(&table).Error; err != nil {
+	err := Config.DB.Preload("CategoryContent").Where("ID = ?", id).Find(&table).Error
+	if err != nil {
 		fmt.Println(err.Error())
 		c.AbortWithStatus(http.StatusNotFound)
-		return table
-	} else {
-		return table
 	}
 
+	return table, err
 }

@@ -26,7 +26,7 @@ func GetTables(c *gin.Context) {
 }
 
 func GetTableByID(c *gin.Context) {
-	s:=c.Param("id")
+	s := c.Param("id")
 	var table TableModel
 	var id int
 	id, err := strconv.Atoi(s)
@@ -34,11 +34,15 @@ func GetTableByID(c *gin.Context) {
 		println("error")
 	}
 
-	table = GetOneTableDB(id, c)
+	table, err = GetOneTableDB(id, c)
 
-	serializer := TableSerializer{c, table}
+	if err != nil {
+		c.JSON(http.StatusNotFound, "Table doesn't exist")
+	} else {
+		serializer := TableSerializer{c, table}
+		c.JSON(http.StatusOK, serializer.Response())
+	}
 
-	c.JSON(http.StatusOK, serializer.Response())
 }
 
 //GetTables ... Get all tables

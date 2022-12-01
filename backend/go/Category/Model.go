@@ -34,17 +34,17 @@ func GetAllCategoriesDB(c *gin.Context) []CategoryModel {
 
 }
 
-func GetOneCategoryDB(id int, c *gin.Context) CategoryModel {
+func GetOneCategoryDB(id int, c *gin.Context) (CategoryModel, error) {
 
 	var category CategoryModel
 
-	if err := Config.DB.Where("ID = ?", id).Find(&category).Error; err != nil {
+	err := Config.DB.Where("ID = ?", id).Find(&category).Error
+	if err != nil {
 		fmt.Println(err.Error())
 		c.AbortWithStatus(http.StatusNotFound)
-		return category
-	} else {
-		return category
 	}
+
+	return category, err
 
 }
 
