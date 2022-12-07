@@ -1,7 +1,4 @@
 export default {
-    ADD_TODO : "addTodo",
-    UPDATE_TODO : "updateTodo",
-    TOGGLE_DONE : "toggleDone",
-    DELETE_TODO : "deleteTodo",
-    INITIALIZE_TODOITEM : "initializeTodoItem",
+    GET_ALL_CATEGORIES : "listCategories",
+    GET_ONE_CATEGORY : "listCategory",
 }
