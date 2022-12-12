@@ -21,7 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('category')->group(function () {
+Route::prefix('api/category')->group(function () {
     Route::get('/', [CategoryController::class, 'index']);
     Route::get('/{id}', [CategoryController::class, 'show']);
     Route::post('/', [CategoryController::class, 'store']);
@@ -29,7 +29,7 @@ Route::prefix('category')->group(function () {
     Route::delete('/{id}', [CategoryController::class, 'destroy']);
 });
 
-Route::prefix('table')->group(function () {
+Route::prefix('api/table')->group(function () {
     Route::get('/', [TableController::class, 'index']);
     Route::get('/{id}', [TableController::class, 'show']);
     Route::post('/', [TableController::class, 'store']);
