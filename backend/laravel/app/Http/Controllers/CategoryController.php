@@ -4,12 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Category\CreateCategory;
 use App\Http\Requests\Category\UpdateCategory;
-use App\Http\Resources\CategoryResource;
 use App\Models\Category;
+use App\Services\CategoryService;
+
 use Illuminate\Http\JsonResponse;
 
 class CategoryController extends Controller
 {
+    private $categoryService;
+
+    public function __construct(CategoryService $categoryService)
+    {
+        $this->categoryService = $categoryService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +25,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return CategoryResource::collection(Category::all());
+        return $this->categoryService->getAllCategoriesService();
     }
 
     /**
@@ -38,11 +46,7 @@ class CategoryController extends Controller
      */
     public function store(CreateCategory $request)
     {
-        try {
-            return CategoryResource::make(Category::create($request->validated()));
-        } catch (\Exception $e) {
-            return response()->json("Category already exists");
-        }
+        return $this->categoryService->createCategoryService($request);
     }
 
     /**
@@ -53,11 +57,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        try {
-            return CategoryResource::make(Category::where('id', $id)->firstOrFail());
-        } catch (\Exception $e) {
-            return response()->json("Category doesn't exist");
-        }
+        return $this->categoryService->getCategoryByIdService($id);
     }
 
     /**
@@ -80,21 +80,7 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategory $request, $id)
     {
-
-        try {
-            $update = Category::where('id', $id)->update($request->validated());
-            if ($update == 1) {
-                return response()->json([
-                    "Message" => "Updated correctly"
-                ]);
-            } else {
-                return response()->json([
-                    "Status" => "Not found"
-                ], 404);
-            };
-        } catch (\Exception $e) {
-            return response()->json("Category already exists");
-        }
+        return $this->categoryService->updateCategoryService($request,$id);
     }
 
     /**
@@ -105,16 +91,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $delete = Category::where('id', $id)->delete();
-
-        if ($delete == 1) {
-            return response()->json([
-                "Message" => "Deleted correctly"
-            ], 200);
-        } else {
-            return response()->json([
-                "Status" => "Not found"
-            ], 404);
-        }
+        return $this->categoryService->deleteCategoryService($id);
     }
 }
