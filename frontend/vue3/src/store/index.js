@@ -1,6 +1,6 @@
 import { createStore } from "vuex";
-import { categoryLaravel } from './modules/categoryLaravel'
-import { categoryGo } from './modules/categoryGo'
+import { categoryAdmin } from './modules/admin/category'
+import { categoryClient } from './modules/client/category'
 
 export default createStore({
     state: {
@@ -10,7 +10,7 @@ export default createStore({
     actions: {
     },
     modules: {
-        categoryLaravel: categoryLaravel,
-        categoryGo: categoryGo
+        categoryAdmin: categoryAdmin,
+        categoryClient: categoryClient
     }
 });

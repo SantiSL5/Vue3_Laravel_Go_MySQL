@@ -45,9 +45,10 @@ export default {
     setup() {
         const store = useStore();
         const state = reactive({
-            categorieslist: computed(() => store.getters["categoryLaravel/getCategory"]),
+            categorieslist: computed(() => store.getters["categoryClient/getCategory"]),
         });
-        store.dispatch("categoryLaravel/" + Constant.GET_ALL_CATEGORIES);
+        store.dispatch("categoryClient/" + Constant.GET_ALL_CATEGORIES);
+        console.log(state);
         return { state };
     },
 };

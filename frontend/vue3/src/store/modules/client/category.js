@@ -1,24 +1,24 @@
-import Constant from "../../Constant";
-import CategoryService from "../../services/CategoryServiceGo";
+import Constant from "../../../Constant";
+import CategoryService from "../../../services/client/CategoryService";
 
-export const categoryGo = {
+export const categoryClient = {
     namespaced: true,
 
     state: {
 
     },
     mutations: {
-        [Constant.GET_ALL_CATEGORIES_GO]: (state) => {
-            state.allUsers;
+        [Constant.GET_ALL_CATEGORIES]: (state, payload) => {
+            state.categorieslist = payload;
         },
         [Constant.GET_ONE_CATEGORY]: (state) => {
             state.allUsers;
         },
     },
     actions: {
-        [Constant.GET_ALL_CATEGORIES_GO]: (store) => {
+        [Constant.GET_ALL_CATEGORIES]: (store) => {
             CategoryService.getAllCategories().then(data => {
-                store.commit(Constant.GET_ALL_CATEGORIES_GO, data.data);
+                store.commit(Constant.GET_ALL_CATEGORIES, data.data);
             });
         },
         [Constant.GET_ONE_CATEGORY]: (store) => {
@@ -29,7 +29,7 @@ export const categoryGo = {
     },
     getters: {
         getCategory(state) {
-            return state.category;
+            return state.categorieslist;
         }
     }
 }

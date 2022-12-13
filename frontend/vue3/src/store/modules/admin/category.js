@@ -1,7 +1,7 @@
-import Constant from "../../Constant";
-import CategoryService from "../../services/CategoryServiceLaravel";
+import Constant from "../../../Constant";
+import CategoryService from "../../../services/admin/CategoryService";
 
-export const categoryLaravel = {
+export const categoryAdmin = {
     namespaced: true,
 
     state: {
@@ -10,7 +10,6 @@ export const categoryLaravel = {
     mutations: {
         [Constant.GET_ALL_CATEGORIES]: (state, payload) => {
             state.categorieslist = payload;
-            console.log(state);
         },
         [Constant.GET_ONE_CATEGORY]: (state) => {
             state.allUsers;
@@ -19,7 +18,6 @@ export const categoryLaravel = {
     actions: {
         [Constant.GET_ALL_CATEGORIES]: (store) => {
             CategoryService.getAllCategories().then(data => {
-                console.log(data.data);
                 store.commit(Constant.GET_ALL_CATEGORIES, data.data);
             });
         },

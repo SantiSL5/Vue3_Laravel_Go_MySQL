@@ -1,5 +1,5 @@
 import Api from '@/services/Api'
-import secret from '../Secret'
+import secret from '../../Secret'
 
 export default {
     getAllCategories() {
