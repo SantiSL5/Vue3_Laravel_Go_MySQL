@@ -4,12 +4,14 @@ import { createRouter, createWebHistory } from "vue-router";
 // import Table from '../views/TableList';
 // import TableList from '../views/TableList';
 import Home from '../views/Home';
+import Shop from '../views/Shop';
 // import About from '../views/About';
 import NotFound from '../views/NotFound';
 
 const routes = [
   { path: "", redirect: { name: "home" } },
   { path: "/home", name: "home", component: Home },
+  { path: "/shop", name: "shop", component: Shop },
   // { path:"/todos", name:"todoList", component: TodoList },
   // { path:"/table", name:"tables", component: CrudTable, children: [
   //   {

@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
 import { categoryAdmin } from './modules/admin/category'
 import { categoryClient } from './modules/client/category'
+import { tableClient } from './modules/client/table'
 
 export default createStore({
     state: {
@@ -11,6 +12,7 @@ export default createStore({
     },
     modules: {
         categoryAdmin: categoryAdmin,
-        categoryClient: categoryClient
+        categoryClient: categoryClient,
+        tableClient: tableClient
     }
 });

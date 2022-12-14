@@ -1,7 +1,6 @@
 package Routes
 
 import (
-	"fmt"
 	"namazu/Category"
 	"namazu/Table"
 	"net/http"
@@ -37,7 +36,6 @@ func SetupRouter() *gin.Engine {
 
 func CORS(c *gin.Context) {
 
-	fmt.Println("join CORS")
 	// First, we add the headers with need to enable CORS
 	// Make sure to adjust these headers to your needs
 	c.Header("Access-Control-Allow-Origin", "*")

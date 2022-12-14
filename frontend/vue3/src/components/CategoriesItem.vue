@@ -48,7 +48,7 @@ export default {
         //         id
         //     });
         // };
-        return { deleteCategory, editCategory, viewCategory  };
+        return { deleteCategory, editCategory, viewCategory };
     },
 };
 </script>
