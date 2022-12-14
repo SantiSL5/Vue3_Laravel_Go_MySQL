@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-fluid padding-fix">
     <Header />
     <router-view></router-view>
   </div>
@@ -9,10 +9,12 @@
 import Header from './components/Header';
 
 export default {
-  components  : { Header }
+  components: { Header }
 }
 </script>
 
 <style>
-
+.padding-fix {
+  padding: 0 !important;
+}
 </style>
