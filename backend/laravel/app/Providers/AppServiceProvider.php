@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Repositories\TableRepository;
 use App\Repositories\CategoryRepository;
+use App\Repositories\DishTypeRepository;
 use App\Interfaces\TableRepositoryInterface;
 use App\Interfaces\CategoryRepositoryInterface;
+use App\Interfaces\DishTypeRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,12 +20,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(CategoryRepositoryInterface::class, function (){
+        $this->app->bind(CategoryRepositoryInterface::class, function () {
             return new CategoryRepository();
         });
 
-        $this->app->bind(TableRepositoryInterface::class, function (){
+        $this->app->bind(TableRepositoryInterface::class, function () {
             return new TableRepository();
+        });
+
+        $this->app->bind(DishTypeRepositoryInterface::class, function () {
+            return new DishTypeRepository();
         });
     }
 
@@ -35,6 +41,5 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         JsonResource::withoutWrapping();
-
     }
 }
