@@ -4,18 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Http\Models\Dish;
+use App\Http\Models\DishType;
 
-class DishType extends Model
+class Dish extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'dish',
         'type',
+        'price',
+        'desc',
         'photo'
     ];
 
-    public function dishTypes()
+    public function dishes()
     {
-        return $this->hasMany(Dish::class);
+        return $this->belongsTo(DishType::class);
     }
-}
+
+}   

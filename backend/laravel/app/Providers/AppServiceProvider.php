@@ -5,9 +5,11 @@ namespace App\Providers;
 use App\Repositories\TableRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\DishTypeRepository;
+use App\Repositories\DishRepository;
 use App\Interfaces\TableRepositoryInterface;
 use App\Interfaces\CategoryRepositoryInterface;
 use App\Interfaces\DishTypeRepositoryInterface;
+use App\Interfaces\DishRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -30,6 +32,10 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(DishTypeRepositoryInterface::class, function () {
             return new DishTypeRepository();
+        });
+
+        $this->app->bind(DishRepositoryInterface::class, function () {
+            return new DishRepository();
         });
     }
 

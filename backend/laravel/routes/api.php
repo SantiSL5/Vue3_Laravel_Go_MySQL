@@ -4,6 +4,7 @@
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DishTypeController;
+use App\Http\Controllers\DishController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -45,6 +46,15 @@ Route::prefix('api/dishtype')->group(function () {
     Route::put('/{id}', [DishTypeController::class, 'update']);
     Route::delete('/{id}', [DishTypeController::class, 'destroy']);
 });
+
+Route::prefix('api/dish')->group(function () {
+    Route::get('/', [DishController::class, 'index']);
+    Route::get('/{id}', [DishController::class, 'show']);
+    Route::post('/', [DishController::class, 'store']);
+    Route::put('/{id}', [DishController::class, 'update']);
+    Route::delete('/{id}', [DishController::class, 'destroy']);
+});
+
 
 // Route::get('/mesa', [BookController::class, 'prueba']);
 // Route::get('/table', [TableController::class, 'prueba']);
