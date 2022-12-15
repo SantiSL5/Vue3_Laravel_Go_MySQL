@@ -9,7 +9,7 @@ import (
 )
 
 //GetAllTables Fetch all table data
-func GetAllTablesDB(c *gin.Context) []TableModel {
+func GetAllTablesRepo(c *gin.Context) []TableModel {
 
 	var tables []TableModel
 
@@ -21,7 +21,7 @@ func GetAllTablesDB(c *gin.Context) []TableModel {
 	return tables
 }
 
-func GetOneTableDB(id int, c *gin.Context) (TableModel, error) {
+func GetOneTableRepo(id int, c *gin.Context) (TableModel, error) {
 
 	var table TableModel
 
