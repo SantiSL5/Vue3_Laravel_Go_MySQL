@@ -1,21 +1,20 @@
 <template>
-    <div class="container-lg m-5">
-        <div class="table-wrapper">
-
-            <div class="table-title">
-                <div class="row">
-                    <div class="col-sm-8">
-                        <h2><b>AAA</b></h2>
-                    </div>
-                    <div class="col-sm-4">
+    <div class="row ontainer-lg m-5 justify-content-center">
+        <div class="col-11">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <h2><b>AAA</b></h2>
+                        </div>
+                        <div class="col-sm-4">
+                        </div>
                     </div>
                 </div>
+                <div class="row justify-content-around">
+                    <ListTables v-for="tableitem in state.tableslist" :key="tableitem.id" :tableitem="tableitem" />
+                </div>
             </div>
-
-            <div class="row justify-content-around">
-                <ListTables v-for="tableitem in state.tableslist" :key="tableitem.id" :tableitem="tableitem" />
-            </div>
-
         </div>
     </div>
 </template>

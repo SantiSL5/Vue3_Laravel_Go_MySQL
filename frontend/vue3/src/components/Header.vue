@@ -51,20 +51,8 @@
 </template>
 
 <script>
-import { reactive, computed } from 'vue';
 
 export default {
-    setup() {
-        const state = reactive({
-            isNavShow: false
-        })
-        const navClass = computed(() => state.isNavShow ? "collapse navbar-collapse show" : "collapse navbar-collapse")
-        const changeIsNavShow = () => {
-            state.isNavShow = !state.isNavShow;
-        }
-
-        return { state, changeIsNavShow, navClass };
-    }
 }
 </script>
 
