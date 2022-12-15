@@ -34,24 +34,24 @@
 </template>
   
 <script>
-import Constant from "../Constant";
-import CategoriesItem from "../components/CategoriesItem.vue";
-import { reactive, computed } from "vue";
-import { useStore } from "vuex";
-// import { useRouter } from "vue-router";
+    import Constant from "../Constant";
+    import CategoriesItem from "../components/CategoriesItem.vue";
+    import { reactive, computed } from "vue";
+    import { useStore } from "vuex";
+    // import { useRouter } from "vue-router";
 
-export default {
-    components: { CategoriesItem },
-    setup() {
-        const store = useStore();
-        const state = reactive({
-            categorieslist: computed(() => store.getters["categoryClient/getCategory"]),
-        });
-        store.dispatch("categoryClient/" + Constant.GET_ALL_CATEGORIES);
-        console.log(state);
-        return { state };
-    },
-};
+    export default {
+        components: { CategoriesItem },
+        setup() {
+            const store = useStore();
+            const state = reactive({
+                categorieslist: computed(() => store.getters["categoryClient/getCategory"]),
+            });
+            store.dispatch("categoryClient/" + Constant.GET_ALL_CATEGORIES);
+            console.log(state);
+            return { state };
+        },
+    };
 </script>
   
 <style>

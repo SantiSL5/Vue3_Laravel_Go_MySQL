@@ -1,5 +1,5 @@
 <template>
-    <Carousel></Carousel>
+    <Carousel :categorieslist="state.categorieslist"></Carousel>
 </template>
   
 <script>
@@ -26,4 +26,3 @@
 <style>
 
 </style>
-  
