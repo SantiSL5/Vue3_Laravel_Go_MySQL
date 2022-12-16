@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GetAllCategoriesDB(c *gin.Context) []CategoryModel {
+func GetAllCategoriesRepo(c *gin.Context) []CategoryModel {
 
 	var categories []CategoryModel
 
@@ -21,7 +21,7 @@ func GetAllCategoriesDB(c *gin.Context) []CategoryModel {
 
 }
 
-func GetOneCategoryDB(id int, c *gin.Context) (CategoryModel, error) {
+func GetOneCategoryRepo(id int, c *gin.Context) (CategoryModel, error) {
 
 	var category CategoryModel
 

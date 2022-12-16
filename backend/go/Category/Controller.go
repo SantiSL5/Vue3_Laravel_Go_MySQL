@@ -2,35 +2,20 @@ package Category
 
 import (
 	"net/http"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
 
 //GetCategories ... Get all categories
 func GetAllCategories(c *gin.Context) {
-	var categories []CategoryModel
-
-	categories = GetAllCategoriesService(c)
-
-	println(categories)
-
+	var categories []CategoryModel=GetAllCategoriesService(c)
 	serializer := CategoriesSerializer{c, categories}
 
 	c.JSON(http.StatusOK, serializer.Response())
 }
 
 func GetCategoryByID(c *gin.Context) {
-
-	s := c.Param("id")
-	var category CategoryModel
-	var id int
-	id, err := strconv.Atoi(s)
-	if err != nil {
-		println("error")
-	}
-
-	category, err = GetOneCategoryDB(id, c)
+	var category, err = GetOneCategoryService(c.Param("id"), c)
 
 	if err != nil {
 		c.JSON(http.StatusNotFound, "Category doesn't exist")
