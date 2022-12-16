@@ -12,16 +12,16 @@ class DishResource extends JsonResource
         if ($request->get('type')) {
             $type = DishType::where('id', $request->get('type'))->firstOrFail();
         } else {
-            $type = DishType::where('id', $this->dishType)->firstOrFail();
+            $type = DishType::where('id', $this->type)->firstOrFail();
         }
 
         return [
             'id' => $this->id,
-            'dish' => $this->code,
+            'dish' => $this->dish,
             'type' => $type,
-            'price' => $this->capacity,
-            'desc' => $this->reserved,
-            'photo' => $this->reserved,
+            'price' => $this->price,
+            'desc' => $this->desc,
+            'photo' => $this->photo,
         ];
     }
 }

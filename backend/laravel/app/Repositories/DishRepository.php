@@ -21,11 +21,6 @@ class DishRepository implements DishRepositoryInterface
     {
         return Dish::where('id', $id)->firstOrFail();
     }
-    
-    public function getDishByCodeRepo($code) 
-    {
-        Dish::where('code', $code)->firstOrFail();
-    }
 
     public function createDishRepo(CreateDish $request)
     {

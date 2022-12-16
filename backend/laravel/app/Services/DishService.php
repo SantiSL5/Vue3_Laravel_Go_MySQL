@@ -73,26 +73,6 @@ class DishService
             }
         }
 
-        if ($request->get('dish')) {
-            try {
-                DishResource::make($this->dishRepository->getDishByCodeRepo($request->get('dish')));
-                return response()->json([
-                    "Message" => "Dish already exists"
-                ]);
-            } catch (\Exception $e) {
-                $update = $this->dishRepository->updateDishRepo($request, $id);
-                if ($update == 1) {
-                    return response()->json([
-                        "Message" => "Updated correctly"
-                    ]);
-                } else {
-                    return response()->json([
-                        "Status" => "Not found"
-                    ], 404);
-                };
-            }
-        }
-
         try {
             $update = $this->dishRepository->updateDishRepo($request, $id);
             if ($update == 1) {
