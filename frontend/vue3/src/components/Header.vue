@@ -1,25 +1,4 @@
 <template>
-    <!-- <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-        <span class="navbar-brand">TodoList App</span>
-        <button class="navbar-toggler" type="button" @click="changeIsNavShow">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div :class="navClass">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <router-link class="nav-link" to="/home">Home</router-link>
-                </li>
-                <li class="nav-item">
-                    <router-link class="nav-link" to="/shop">Shop</router-link>
-                </li>
-                <li class="nav-item">
-                    <router-link class="nav-link" to="/categories">CRUD Categories</router-link>
-                </li>
-            </ul>
-        </div>
-    </nav> -->
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Namazu</a>
@@ -33,10 +12,10 @@
                         <router-link class="nav-link active" aria-current="page" href="#" to="/home">Home</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link" href="#" to="/shop">Shop</router-link>
+                        <router-link class="nav-link" href="#" to="/reservations">Reservations</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link" href="#" to="/menus">Menus</router-link>
+                        <router-link class="nav-link" href="#" to="/menu">Menu</router-link>
                     </li>
                 </ul>
                 <span class="navbar-text">
@@ -45,9 +24,6 @@
             </div>
         </div>
     </nav>
-
-
-
 </template>
 
 <script>

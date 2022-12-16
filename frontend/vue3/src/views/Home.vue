@@ -1,26 +1,27 @@
 <template>
     <Carousel :categorieslist="state.categorieslist"></Carousel>
+    <InfiniteScroll></InfiniteScroll>
 </template>
   
 <script>
-    import Constant from "../Constant";
-    import Carousel from "../components/Carousel.vue";
-    import { reactive, computed } from "vue";
-    import { useStore } from "vuex";
-    // import { useRouter } from "vue-router";
+import Constant from "../Constant";
+import Carousel from "../components/Carousel.vue";
+import InfiniteScroll from "../components/InfinteScroll.vue";
+import { reactive, computed } from "vue";
+import { useStore } from "vuex";
+// import { useRouter } from "vue-router";
 
-    export default {
-        components: { Carousel },
-        setup() {
-            const store = useStore();
-            const state = reactive({
-                categorieslist: computed(() => store.getters["categoryClient/getCategory"]),
-            });
-            store.dispatch("categoryClient/" + Constant.GET_ALL_CATEGORIES);
-            console.log(state);
-            return { state };
-        },
-    };
+export default {
+    components: { Carousel, InfiniteScroll },
+    setup() {
+        const store = useStore();
+        const state = reactive({
+            categorieslist: computed(() => store.getters["categoryClient/getCategory"]),
+        });
+        store.dispatch("categoryClient/" + Constant.GET_ALL_CATEGORIES);
+        return { state };
+    },
+};
 </script>
   
 <style>
