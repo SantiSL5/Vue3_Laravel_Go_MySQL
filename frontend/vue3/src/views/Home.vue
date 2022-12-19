@@ -1,6 +1,6 @@
 <template>
     <Carousel :categorieslist="state.categorieslist"></Carousel>
-    <InfiniteScroll></InfiniteScroll>
+    <InfiniteScroll :dishtypeslist="state.dishtypeslist"></InfiniteScroll>
 </template>
   
 <script>
@@ -17,8 +17,12 @@ export default {
         const store = useStore();
         const state = reactive({
             categorieslist: computed(() => store.getters["categoryClient/getCategory"]),
+            dishtypeslist: computed(() => store.getters["dishtypeClient/getDishType"]),
         });
         store.dispatch("categoryClient/" + Constant.GET_ALL_CATEGORIES);
+        store.dispatch("dishtypeClient/" + Constant.GET_ALL_DISHTYPES);
+        console.log(state.dishtypeslist);
+        // console.log(state);
         return { state };
     },
 };
