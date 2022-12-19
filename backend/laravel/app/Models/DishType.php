@@ -10,7 +10,7 @@ class DishType extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'type',
+        'name',
         'photo'
     ];
 

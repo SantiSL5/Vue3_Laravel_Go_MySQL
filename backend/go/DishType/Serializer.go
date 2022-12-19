@@ -6,7 +6,7 @@ import (
 
 type DishTypeResponse struct {
 	Id    uint   `json:"id"`
-	Type  string `json:"type"`
+	Name  string `json:"name"`
 	Photo string `json:"photo"`
 }
 
@@ -23,7 +23,7 @@ type DishTypesSerializer struct {
 func (ss *DishTypeSerializer) Response() DishTypeResponse {
 	response := DishTypeResponse{
 		Id:    ss.dishType.Id,
-		Type:  ss.dishType.Type,
+		Name:  ss.dishType.Name,
 		Photo: ss.dishType.Photo,
 	}
 

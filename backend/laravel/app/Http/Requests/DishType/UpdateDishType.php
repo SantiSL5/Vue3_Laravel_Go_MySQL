@@ -24,7 +24,7 @@ class UpdateDishType extends FormRequest
     public function rules()
     {
         return [
-            'type' => ['sometimes'],
+            'name' => ['sometimes'],
             'photo' => ['sometimes']
         ];
     }

@@ -10,7 +10,7 @@ type TableResponse struct {
 	Id              uint                   `json:"id"`
 	Category        uint                   `json:"category"`
 	Code            int                    `json:"code"`
-	Capacity        string                 `json:"capacity"`
+	Capacity        int                    `json:"capacity"`
 	Reserved        bool                   `json:"reserved"`
 	CategoryContent Category.CategoryModel `json:"categorycontent"`
 }

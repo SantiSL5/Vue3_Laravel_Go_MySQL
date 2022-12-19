@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('dish_types', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string("type")->unique();
+            $table->string("name")->unique();
             $table->string("photo");
         });
     }
