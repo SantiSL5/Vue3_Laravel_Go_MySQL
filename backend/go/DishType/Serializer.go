@@ -26,7 +26,7 @@ func (ss *DishTypeSerializer) Response() DishTypeResponse {
 		Id:    ss.dishType.Id,
 		Name:  ss.dishType.Name,
 		Photo: ss.dishType.Photo,
-		Order: ss.dishType.Order
+		Order: ss.dishType.Order,
 	}
 
 	return response

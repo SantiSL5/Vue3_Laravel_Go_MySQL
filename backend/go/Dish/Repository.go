@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"namazu/Config"
 	"net/http"
+	"sort"
 
 	"github.com/gin-gonic/gin"
 )
@@ -17,6 +18,10 @@ func GetAllDishesRepo(c *gin.Context) []DishModel {
 		c.AbortWithStatus(http.StatusNotFound)
 		fmt.Println("Status:", err)
 	}
+
+	sort.Slice(dishes, func(i, j int) bool {
+		return dishes[i].TypeContent.Order < dishes[j].TypeContent.Order
+	})
 
 	return dishes
 }
