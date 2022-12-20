@@ -11,7 +11,7 @@ type TableModel struct {
 	Category        uint                   `gorm:"ForeignKey:ID" json:"category"`
 	Code            int                    `json:"code"`
 	Capacity        int                    `json:"capacity"`
-	Reserved        bool                   `json:"reserved"`
+	Enabled         bool                   `json:"enabled"`
 	CategoryContent Category.CategoryModel `gorm:"ForeignKey:Category" json:"categorycontent"`
 }
 

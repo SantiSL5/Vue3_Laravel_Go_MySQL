@@ -25,7 +25,8 @@ class CreateDishType extends FormRequest
     {
         return [
             'name' => ['required'],
-            'photo' => ['required']
+            'photo' => ['required'],
+            'order' => ['required']
         ];
     }
 }

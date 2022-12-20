@@ -11,7 +11,8 @@ class DishType extends Model
     use HasFactory;
     protected $fillable = [
         'name',
-        'photo'
+        'photo',
+        'order'
     ];
 
     public function dishTypes()

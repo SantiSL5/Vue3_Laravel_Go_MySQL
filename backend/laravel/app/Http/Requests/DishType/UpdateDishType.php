@@ -25,7 +25,8 @@ class UpdateDishType extends FormRequest
     {
         return [
             'name' => ['sometimes'],
-            'photo' => ['sometimes']
+            'photo' => ['sometimes'],
+            'order' => ['sometimes']
         ];
     }
 }

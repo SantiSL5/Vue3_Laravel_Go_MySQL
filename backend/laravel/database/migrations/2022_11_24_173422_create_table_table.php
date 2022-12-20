@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer("code")->unique();
             $table->foreignId('category')->constraint('category');
             $table->integer("capacity");
-            $table->boolean("reserved");
+            $table->boolean("enabled");
         });
     }
 

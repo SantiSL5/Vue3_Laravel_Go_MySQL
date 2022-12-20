@@ -27,7 +27,7 @@ class UpdateTable extends FormRequest
             'code' => ['sometimes'],
             'category' => ['sometimes'],
             'capacity' => ['sometimes'],
-            'reserved' => ['sometimes'],
+            'enabled' => ['sometimes'],
         ];
     }
 }

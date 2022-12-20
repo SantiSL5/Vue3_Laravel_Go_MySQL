@@ -27,7 +27,7 @@ class CreateTable extends FormRequest
             'code' => ['required'],
             'category' => ['required'],
             'capacity' => ['required'],
-            'reserved' => ['required'],
+            'enabled' => ['required'],
         ];
     }
 }

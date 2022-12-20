@@ -13,7 +13,7 @@ class Table extends Model
         'code',
         'category',
         'capacity',
-        'reserved'
+        'enabled'
     ];
 
     public function tables()

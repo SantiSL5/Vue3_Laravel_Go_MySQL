@@ -8,6 +8,7 @@ type DishTypeResponse struct {
 	Id    uint   `json:"id"`
 	Name  string `json:"name"`
 	Photo string `json:"photo"`
+	Order int    `json:"order"`
 }
 
 type DishTypeSerializer struct {
@@ -25,6 +26,7 @@ func (ss *DishTypeSerializer) Response() DishTypeResponse {
 		Id:    ss.dishType.Id,
 		Name:  ss.dishType.Name,
 		Photo: ss.dishType.Photo,
+		Order: ss.dishType.Order
 	}
 
 	return response

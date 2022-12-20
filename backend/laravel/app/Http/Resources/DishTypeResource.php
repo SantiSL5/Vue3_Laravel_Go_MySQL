@@ -11,7 +11,8 @@ class DishTypeResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'photo' => $this->photo
+            'photo' => $this->photo,
+            'order' => $this->order
         ];
     }
 }

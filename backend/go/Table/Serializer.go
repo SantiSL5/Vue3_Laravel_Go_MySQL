@@ -11,7 +11,7 @@ type TableResponse struct {
 	Category        uint                   `json:"category"`
 	Code            int                    `json:"code"`
 	Capacity        int                    `json:"capacity"`
-	Reserved        bool                   `json:"reserved"`
+	Enabled         bool                   `json:"enabled"`
 	CategoryContent Category.CategoryModel `json:"categorycontent"`
 }
 
@@ -31,7 +31,7 @@ func (ss *TableSerializer) Response() TableResponse {
 		Code:            ss.table.Code,
 		Category:        ss.table.Category,
 		Capacity:        ss.table.Capacity,
-		Reserved:        ss.table.Reserved,
+		Enabled:         ss.table.Enabled,
 		CategoryContent: ss.table.CategoryContent,
 	}
 
