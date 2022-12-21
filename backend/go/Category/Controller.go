@@ -8,7 +8,7 @@ import (
 
 //GetCategories ... Get all categories
 func GetAllCategories(c *gin.Context) {
-	var categories []CategoryModel=GetAllCategoriesService(c)
+	var categories []CategoryModel = GetAllCategoriesService(c)
 	serializer := CategoriesSerializer{c, categories}
 
 	c.JSON(http.StatusOK, serializer.Response())

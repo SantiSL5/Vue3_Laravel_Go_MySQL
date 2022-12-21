@@ -2,7 +2,7 @@ package DishType
 
 import (
 	"strconv"
-	
+
 	"github.com/gin-gonic/gin"
 )
 

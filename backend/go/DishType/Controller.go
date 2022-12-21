@@ -8,7 +8,7 @@ import (
 
 //GetDishTypes ... Get all dishTypes
 func GetAllDishTypes(c *gin.Context) {
-	var dishTypes []DishTypeModel=GetAllDishTypesService(c)
+	var dishTypes []DishTypeModel = GetAllDishTypesService(c)
 	serializer := DishTypesSerializer{c, dishTypes}
 
 	c.JSON(http.StatusOK, serializer.Response())

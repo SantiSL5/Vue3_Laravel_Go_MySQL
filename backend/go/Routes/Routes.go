@@ -2,9 +2,9 @@ package Routes
 
 import (
 	"namazu/Category"
-	"namazu/Table"
-	"namazu/DishType"
 	"namazu/Dish"
+	"namazu/DishType"
+	"namazu/Table"
 	"net/http"
 
 	// "net/http"

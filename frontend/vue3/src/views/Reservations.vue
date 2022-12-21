@@ -1,5 +1,5 @@
 <template>
-    <div class="row ontainer-lg m-5 justify-content-center">
+    <div class="row container-fluid-lg m-5 justify-content-center">
         <div class="col-11">
             <div class="table-wrapper">
                 <div class="table-title">

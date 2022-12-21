@@ -2,7 +2,7 @@ import { createStore } from "vuex";
 import { categoryAdmin } from './modules/admin/category'
 import { categoryClient } from './modules/client/category'
 import { tableClient } from './modules/client/table'
-import { dishtypeClient } from './modules/client/dishtype'
+import { dishClient } from './modules/client/dish'
 
 
 export default createStore({
@@ -16,6 +16,6 @@ export default createStore({
         categoryAdmin: categoryAdmin,
         categoryClient: categoryClient,
         tableClient: tableClient,
-        dishtypeClient: dishtypeClient,
+        dishClient: dishClient,
     }
 });

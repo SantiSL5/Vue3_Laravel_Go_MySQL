@@ -14,7 +14,7 @@ func GetDishes(c *gin.Context) {
 }
 
 func GetDishByID(c *gin.Context) {
-	var dish,err=GetOneDishService(c.Param("id"), c);
+	var dish, err = GetOneDishService(c.Param("id"), c)
 	if err != nil {
 		c.JSON(http.StatusNotFound, "Dish doesn't exist")
 	} else {

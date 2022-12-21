@@ -13,7 +13,8 @@ func GetAllDishTypesRepo(c *gin.Context) []DishTypeModel {
 	var dishTypes []DishTypeModel
 	limitV, limit := c.GetQuery("limit")
 	offsetV, offset := c.GetQuery("offset")
-	if limit && offset {
+
+	if limit && limitV != "undefined" && offset {
 		if err := Config.DB.Limit(limitV).Offset(offsetV).Find(&dishTypes).Error; err != nil {
 			c.AbortWithStatus(http.StatusNotFound)
 			fmt.Println("Status:", err)
