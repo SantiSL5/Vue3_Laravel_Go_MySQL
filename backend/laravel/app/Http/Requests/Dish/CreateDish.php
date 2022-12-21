@@ -3,6 +3,9 @@
 namespace App\Http\Requests\Dish;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class CreateDish extends FormRequest
 {
@@ -30,5 +33,16 @@ class CreateDish extends FormRequest
             'desc' => ['required'],
             'photo' => ['required'],
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        if ($validator->fails()) {
+            throw new HttpResponseException(response()->json([
+                'msg'    => 'Se deben introducir todos los campos para crear una mesa',
+                'status' => false,
+                'errors' => $validator->errors(),
+            ], 400));
+       }
     }
 }

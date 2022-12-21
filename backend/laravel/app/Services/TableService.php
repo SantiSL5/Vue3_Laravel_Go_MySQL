@@ -49,7 +49,9 @@ class TableService
         try {
             return TableResource::make($this->tableRepository->createTableRepo($request));
         } catch (\Exception $e) {
-            return response()->json("Table code already exists");
+            return response()->json([
+                "Message" => "Table code already exists"
+            ]);
         }
     }
 

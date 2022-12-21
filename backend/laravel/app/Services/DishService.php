@@ -49,7 +49,9 @@ class DishService
         try {
             return DishResource::make($this->dishRepository->createDishRepo($request));
         } catch (\Exception $e) {
-            return response()->json("Dish already exists");
+            return response()->json([
+                "Message" => "Dish already exists"
+            ]);
         }
     }
 

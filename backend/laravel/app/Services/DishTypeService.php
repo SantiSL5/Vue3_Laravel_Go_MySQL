@@ -65,7 +65,9 @@ class DishTypeService
                 ], 404);
             };
         } catch (\Exception $e) {
-            return response()->json("DishType already exists");
+            return response()->json([
+                "Message" => "DishType already exists"
+            ]);
         }
     }
 
