@@ -19,7 +19,9 @@
                     </li>
                 </ul>
                 <span class="navbar-text">
-                    Placeholder
+                    <router-link class="nav-link" href="#" to="/login">
+                        <button type="button" class="btn btn-info">Login</button>
+                    </router-link>
                 </span>
             </div>
         </div>

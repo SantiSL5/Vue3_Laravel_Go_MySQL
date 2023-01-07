@@ -6,6 +6,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from '../views/Home';
 import Reservations from '../views/Reservations';
 import Menu from '../views/Menu';
+import Login from '../views/Login';
 // import About from '../views/About';
 import NotFound from '../views/NotFound';
 
@@ -14,6 +15,7 @@ const routes = [
   { path: "/home", name: "home", component: Home },
   { path: "/reservations", name: "reservations", component: Reservations },
   { path: "/menu", name: "menu", component: Menu },
+  { path: "/login", name: "login", component: Login },
   // { path:"/todos", name:"todoList", component: TodoList },
   // { path:"/table", name:"tables", component: CrudTable, children: [
   //   {
