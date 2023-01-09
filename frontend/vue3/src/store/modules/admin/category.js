@@ -14,6 +14,12 @@ export const categoryAdmin = {
         [Constant.GET_ONE_CATEGORY]: (state) => {
             state.allUsers;
         },
+        [Constant.DELETE_ONE_CATEGORY]: (state, payload) => {
+            let index = state.categorieslist.findIndex(
+                (item) => item.id === payload
+            );
+            state.categorieslist.splice(index, 1);
+        },
     },
     actions: {
         [Constant.GET_ALL_CATEGORIES]: (store) => {
@@ -25,6 +31,11 @@ export const categoryAdmin = {
             CategoryService.getCategoryById().then(data => {
                 store.commit(Constant.GET_ONE_CATEGORY, data.data);
             });
+        },
+        [Constant.DELETE_ONE_CATEGORY]: (store, payload) => {
+            CategoryService.deleteCategoryById(payload.id).then( 
+                store.commit(Constant.DELETE_ONE_CATEGORY, payload.id)
+            );
         },
     },
     getters: {

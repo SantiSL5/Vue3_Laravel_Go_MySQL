@@ -18,10 +18,20 @@
                         <router-link class="nav-link" href="#" to="/menu">Menu</router-link>
                     </li>
                 </ul>
-                <span class="navbar-text">
-                    <router-link class="nav-link" href="#" to="/login">
-                        <button type="button" class="btn btn-info">Login</button>
-                    </router-link>
+                <span class="navbar-text row">
+
+                    <!-- ////////// -->
+                    <div class="col">
+                        <router-link class="nav-link" href="#" to="/admin">
+                            <button type="button" class="btn btn-info">PanelAdmin</button>
+                        </router-link>
+                    </div>
+                    <!-- ////////// -->
+                    <div class="col">
+                        <router-link class="nav-link" href="#" to="/login">
+                            <button type="button" class="btn btn-info">Login</button>
+                        </router-link>
+                    </div>
                 </span>
             </div>
         </div>
