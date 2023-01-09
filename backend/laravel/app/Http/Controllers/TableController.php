@@ -15,9 +15,9 @@ class TableController extends Controller
 {
     private $tableService;
 
-    public function __construct(TableService $categoryService)
+    public function __construct(TableService $tableService)
     {
-        $this->tableService = $categoryService;
+        $this->tableService = $tableService;
     }
 
     /**
