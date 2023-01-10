@@ -98,9 +98,7 @@ class TableService
         try {
             $update = $this->tableRepository->updateTableRepo($request, $id);
             if ($update == 1) {
-                return response()->json([
-                    "Message" => "Updated correctly"
-                ]);
+                return TableResource::make($this->tableRepository->getTableByIdRepo($id));                ;
             } else {
                 return response()->json([
                     "Message" => "Not found"

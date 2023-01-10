@@ -56,9 +56,7 @@ class CategoryService
         try {
             $update = $this->categoryRepository->updateCategoryRepo($request, $id);
             if ($update == 1) {
-                return response()->json([
-                    "Message" => "Updated correctly"
-                ]);
+                return CategoryResource::make($this->categoryRepository->getCategoryByIdRepo($id));
             } else {
                 return response()->json([
                     "Message" => "Not found"

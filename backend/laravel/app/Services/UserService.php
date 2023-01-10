@@ -69,9 +69,7 @@ class UserService
             }
             $update = $this->userRepository->updateUserRepo($request, $id);
             if ($update == 1) {
-                return response()->json([
-                    "Message" => "Updated correctly"
-                ]);
+                return UserResource::make($this->userRepository->getUserByIdRepo($id));
             } else {
                 return response()->json([
                     "Message" => "Not found"
@@ -106,8 +104,13 @@ class UserService
         }
 
         try {
-            UserResource::make($this->userRepository->getUserByUsernameRepo($request->get('username')));
-            return response()->json(['token' => $token, 'user' => $this->userRepository->loginUserRepo()]);
+            $user=UserResource::make($this->userRepository->getUserByUsernameRepo($request->get('username')));
+            if ($user['type'] == "admin") {
+                return response()->json(['token' => $token, 'user' => $this->userRepository->loginUserRepo()]);
+            }
+            return response()->json([
+                "Message" => "This user is not an admin"
+            ]);
         } catch (\Exception $e) {
             return response()->json([
                 "Message" => "User doesn't exist"

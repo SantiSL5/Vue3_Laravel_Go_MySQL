@@ -78,9 +78,7 @@ class DishService
         try {
             $update = $this->dishRepository->updateDishRepo($request, $id);
             if ($update == 1) {
-                return response()->json([
-                    "Message" => "Updated correctly"
-                ]);
+                return DishResource::make($this->dishRepository->getDishByIdRepo($id));
             } else {
                 return response()->json([
                     "Message" => "Not found"
