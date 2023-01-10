@@ -51,11 +51,11 @@ export const categoryAdmin = {
                 const toaster = createToaster({
                     position: "top"
                 });
-                if (data.data.Message) {
+                if (data.data != "Category already exists") {
                     toaster.success(`Category updated successfully`);
                     store.commit(Constant.UPDATE_ONE_CATEGORY, payload)
                 } else {
-                    toaster.error(`Category already exists`);
+                    toaster.error(data.data);
                 }
             });
         },

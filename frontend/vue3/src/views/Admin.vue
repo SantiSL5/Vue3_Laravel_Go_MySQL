@@ -20,6 +20,7 @@
         </nav>
         
         <Categories v-if="state.crud == 'categories'" :categories="state.categories"></Categories>
+        <Tables v-if="state.crud == 'tables'" :tables="state.tables"></Tables>
 
     </div>
 </template>
@@ -29,17 +30,20 @@ import Constant from "../Constant";
 import { reactive, computed } from "vue";
 import { useStore } from "vuex";
 import Categories from "../components/admin/CRUDCategories.vue";
+import Tables from "../components/admin/CRUDTables.vue";
 
 
 export default {
-    components: { Categories },
+    components: { Categories, Tables },
     setup() {
         const store = useStore();
         const state = reactive({
             categories: computed(() => store.getters["categoryAdmin/getCategory"]),
+            tables: computed(() => store.getters["tableAdmin/getTable"]),
             crud: "categories"
         });
         store.dispatch("categoryAdmin/" + Constant.GET_ALL_CATEGORIES);
+        store.dispatch("tableAdmin/" + Constant.GET_ALL_TABLES);
         return { state };
     },
 };

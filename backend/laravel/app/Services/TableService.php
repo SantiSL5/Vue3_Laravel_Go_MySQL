@@ -9,7 +9,7 @@ use App\Http\Requests\Table\UpdateTable;
 use App\Http\Resources\TableResource;
 use App\Http\Resources\CategoryResource;
 
-class TableService 
+class TableService
 {
     private $tableRepository;
     private $categoryRepository;
@@ -25,7 +25,7 @@ class TableService
         return TableResource::collection($this->tableRepository->getAllTablesRepo());
     }
 
-    public function getTableByIdService($id) 
+    public function getTableByIdService($id)
     {
         try {
             return TableResource::make($this->tableRepository->getTableByIdRepo($id));
@@ -77,16 +77,24 @@ class TableService
 
         if ($request->get('code')) {
             try {
-                TableResource::make($this->tableRepository->getTableByCodeRepo($request->get('code')));
+                $table=TableResource::make($this->tableRepository->getTableByCodeRepo($request->get('code')));
+                if ($table['id']==$request->get('id')) {
+                    $update = $this->tableRepository->updateTableRepo($request, $id);
+                    if ($update == 1) {
+                        return TableResource::make($this->tableRepository->getTableByIdRepo($id));
+                    } else {
+                        return response()->json([
+                            "Status" => "Not found"
+                        ], 404);
+                    };
+                }
                 return response()->json([
                     "Message" => "Table code already exists"
                 ]);
             } catch (\Exception $e) {
                 $update = $this->tableRepository->updateTableRepo($request, $id);
                 if ($update == 1) {
-                    return response()->json([
-                        "Message" => "Updated correctly"
-                    ]);
+                    return TableResource::make($this->tableRepository->getTableByIdRepo($id));
                 } else {
                     return response()->json([
                         "Status" => "Not found"
@@ -94,11 +102,11 @@ class TableService
                 };
             }
         }
-        
+
         try {
             $update = $this->tableRepository->updateTableRepo($request, $id);
             if ($update == 1) {
-                return TableResource::make($this->tableRepository->getTableByIdRepo($id));                ;
+                return TableResource::make($this->tableRepository->getTableByIdRepo($id));
             } else {
                 return response()->json([
                     "Message" => "Not found"
@@ -123,6 +131,6 @@ class TableService
             return response()->json([
                 "Status" => "Not found"
             ], 404);
-        } 
+        }
     }
 }

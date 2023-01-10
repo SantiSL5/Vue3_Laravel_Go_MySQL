@@ -3,25 +3,9 @@
     <div class="col-2">
       <div class="sticky-top">
         <div class="row justify-content-around mt-5">
-
           <div id="navbar-dishtype" class="list-group col-10">
             <a v-for="dishtype in disheslist[1]" :key="dishtype.id" class="list-group-item list-group-item-action" :href="'#' + dishtype.name">{{ dishtype.name }}</a>
           </div>
-
-          
-          
-          
-          
-          
-          
-          <!-- <nav id="navbar-example3" class="navbar navbar-light bg-light flex-column align-items-stretch p-3">
-            <nav class="nav nav-pills flex-column" v-for="dishtype in disheslist[1]" :key="dishtype.id">
-              <a class="nav-link" :href="'#' + dishtype.name">{{ dishtype.name }}</a>
-            </nav>
-          </nav> -->
-
-
-
         </div>
       </div>
     </div>
