@@ -11,7 +11,7 @@ interface UserRepositoryInterface
     function getUserByIdRepo($id);
     function getUserByUsernameRepo($username);
     function createUserRepo(CreateUser $request);
-    function loginUserRepo(LoginUser $request);
+    function loginUserRepo();
     function updateUserRepo(UpdateUser $request,$id);
     function deleteUserRepo($id);
 }

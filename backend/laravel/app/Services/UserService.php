@@ -7,6 +7,8 @@ use App\Http\Requests\User\CreateUser;
 use App\Http\Requests\User\UpdateUser;
 use App\Http\Requests\User\LoginUser;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserService 
 {
@@ -40,7 +42,6 @@ class UserService
             $request->merge([
                 'password' => $passwordhashed,
             ]);
-            // return $request;
             return UserResource::make($this->userRepository->createUserRepo($request));
         } catch (\Exception $e) {
             return response()->json([
@@ -60,6 +61,12 @@ class UserService
         }
 
         try {
+            if ($request->get('password')) {
+                $passwordhashed=bcrypt($request->get('password'));
+                $request->merge([
+                    'password' => $passwordhashed,
+                ]);
+            }
             $update = $this->userRepository->updateUserRepo($request, $id);
             if ($update == 1) {
                 return response()->json([
@@ -92,14 +99,14 @@ class UserService
 
     public function loginUserService(LoginUser $request)
     {
-        $token = Auth::attempt($request->validated());
-
+        $credentials = $request->only('username', 'password');
+        $token=Auth::attempt($credentials);
         if (!$token) {
             return response()->json([ "error" => "Unauthorized" ], 400);
         }
 
         try {
-            return UserResource::make($this->userRepository->getUserByUsernameRepo($request->get('username')));
+            UserResource::make($this->userRepository->getUserByUsernameRepo($request->get('username')));
             return response()->json(['token' => $token, 'user' => $this->userRepository->loginUserRepo()]);
         } catch (\Exception $e) {
             return response()->json([

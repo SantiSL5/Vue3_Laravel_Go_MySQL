@@ -9,6 +9,7 @@ use App\Http\Requests\User\LoginUser;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -33,9 +34,9 @@ class UserRepository implements UserRepositoryInterface
         return User::create($request->all());
     }
 
-    public function loginUserRepo(LoginUser $request)
+    public function loginUserRepo()
     {
-        return User::make(auth()->user());
+        return Auth::user();
     }
 
     public function updateUserRepo(UpdateUser $request, $id)
