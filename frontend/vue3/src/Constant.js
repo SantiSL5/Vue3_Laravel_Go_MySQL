@@ -11,7 +11,13 @@ export default {
     GET_ONE_TABLE: "listTable",
     UPDATE_ONE_TABLE: "updateTable",
     DELETE_ONE_TABLE: "deleteTable",
-    
+    // Dish types 
+    CREATE_ONE_DISHTYPE: "createDishType",
+    GET_ALL_DISHTYPES: "listDishTypes",
+    GET_ONE_DISHTYPE: "listDishType",
+    UPDATE_ONE_DISHTYPE: "updateDishType",
+    DELETE_ONE_DISHTYPE: "deleteDishType",
+
     GET_ALL_DISHES: "listDishes",
     GET_ONE_DISH: "listDish",
 }
