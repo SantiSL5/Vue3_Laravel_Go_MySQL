@@ -15,7 +15,7 @@ class UserResource extends JsonResource
             'password' => $this->password,
             'type' => $this->type ? $this->type : "client",
             'image' => $this->image ? $this->image : "https://static.productionready.io/images/smiley-cyrus.jpg",
-            'enabled' => $this->enabled ? $this->enabled : true,
+            'enabled' => $this->enabled ? true : false,
         ];
     }
 }

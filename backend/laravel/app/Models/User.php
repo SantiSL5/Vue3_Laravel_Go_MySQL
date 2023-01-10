@@ -34,18 +34,6 @@ class User extends Authenticatable implements JWTSubject {
         'password',
     ];
 
-    // public function create($fields) 
-    // {
-    //     return parent::create([
-    //         'username' => $fields['username'],
-    //         'email' => $fields['email'],
-    //         'password' => bcrypt($fields['password']),
-    //         'type' => isset($fields['type']) ? $fields['type'] : 'client',
-    //         'image' =>  isset($fields['image']) ? $fields['image'] : 'https://static.productionready.io/images/smiley-cyrus.jpg',
-    //         'enabled' =>  isset($fields['enabled']) ? $fields['enabled'] : true,
-    //     ]);
-    // } 
-
     public function getJWTIdentifier()
     {
         return $this->getKey();

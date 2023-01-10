@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('type')->default('client');
             $table->string('image')->default('https://static.productionready.io/images/smiley-cyrus.jpg');
-            $table->boolean('enabled')->default(true);
+            $table->boolean('enabled');
             $table->timestamps();
         });
     }

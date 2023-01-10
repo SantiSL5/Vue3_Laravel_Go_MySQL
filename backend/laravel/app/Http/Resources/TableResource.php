@@ -20,7 +20,7 @@ class TableResource extends JsonResource
             'code' => $this->code,
             'category' => $category,
             'capacity' => $this->capacity,
-            'enabled' => $this->enabled,
+            'enabled' => $this->enabled ? true : false,
         ];
     }
 }
