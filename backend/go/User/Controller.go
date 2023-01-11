@@ -28,13 +28,15 @@ func Register(c *gin.Context) {
 }
 
 func Login(c *gin.Context) {
-	// var category, err = GetOneCategoryService(c.Param("id"), c)
-
-	// if err != nil {
-	// 	c.JSON(http.StatusNotFound, "Category doesn't exist")
-	// } else {
-	// 	serializer := CategorySerializer{c, category}
-	// 	c.JSON(http.StatusOK, serializer.Response())
-	// }
-
+	err, usr := LoginService(c)
+	if err != nil || len(usr.Username) == 0 {
+		c.JSON(http.StatusInternalServerError, "Email or password is not correct")
+	} else {
+		UpdateContextUserModel(c, usr.Id)
+		// c.Set("my_user_id", user.Id)
+		// c.Set("my_user_model", user)
+		serializer := UserSerializer{c, usr}
+		c.JSON(http.StatusOK, serializer.Response())
+		// c.JSON(http.StatusOK, usr)
+	}
 }
