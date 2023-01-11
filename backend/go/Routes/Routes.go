@@ -5,6 +5,7 @@ import (
 	"namazu/Dish"
 	"namazu/DishType"
 	"namazu/Table"
+	"namazu/User"
 	"net/http"
 
 	// "net/http"
@@ -28,6 +29,7 @@ func SetupRouter() *gin.Engine {
 	Table.TableRouting(api.Group("/table"))
 	DishType.DishTypeRouting(api.Group("/dishtype"))
 	Dish.DishRouting(api.Group("/dish"))
+	User.UserRouting(api.Group("/user"))
 
 	return r
 
