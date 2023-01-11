@@ -10,10 +10,10 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                        <a class="nav-link" @click="state.crud = 'categories'">Categories</a>
-                        <a class="nav-link" @click="state.crud = 'tables'">Tables</a>
-                        <a class="nav-link" @click="state.crud = 'dishtypes'">Dish Types</a>
-                        <a class="nav-link" @click="state.crud = 'dishes'">Dishes</a>
+                        <a class="nav-link pointer" @click="state.crud = 'categories'">Categories</a>
+                        <a class="nav-link pointer" @click="state.crud = 'tables'">Tables</a>
+                        <a class="nav-link pointer" @click="state.crud = 'dishtypes'">Dish Types</a>
+                        <a class="nav-link pointer" @click="state.crud = 'dishes'">Dishes</a>
                         <!-- <a class="nav-link">Features</a>
                         <a class="nav-link">Pricing</a> -->
                     </div>
@@ -61,5 +61,7 @@ export default {
 </script>
   
 <style>
-
+.pointer {
+    cursor: pointer;
+}
 </style>

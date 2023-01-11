@@ -18,7 +18,7 @@
             <input type="text" class="form-control" id="desc" v-model="state.dish.desc" required>
         </div>
         <button type="button" class="btn btn-success mb-3" @click="createDish()" v-if="state.formType == 'create'"
-            :disabled="state.dish.code == '' || state.dish.category == '' || state.dish.capacity == ''">Create</button>
+            :disabled="state.dish.dish == '' || state.dish.type == '' || state.dish.price == '' || state.dish.desc == ''">Create</button>
         <div v-if="state.formType == 'update'">
             <button type="button" class="btn btn-warning mb-3" @click="updateDish()"
                 :disabled="state.dish.name == '' || state.dish.photo == ''">Update</button>
