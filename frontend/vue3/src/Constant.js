@@ -17,7 +17,10 @@ export default {
     GET_ONE_DISHTYPE: "listDishType",
     UPDATE_ONE_DISHTYPE: "updateDishType",
     DELETE_ONE_DISHTYPE: "deleteDishType",
-
+    // Dishes 
+    CREATE_ONE_DISH: "createDish",
     GET_ALL_DISHES: "listDishes",
     GET_ONE_DISH: "listDish",
+    UPDATE_ONE_DISH: "updateDish",
+    DELETE_ONE_DISH: "deleteDish",
 }

@@ -3,7 +3,7 @@
     <form>
         <div class="mb-3">
             <label for="code" class="form-label">Code</label>
-            <input type="text" class="form-control" id="code" v-model="state.table.code" required>
+            <input type="number" class="form-control" id="code" v-model="state.table.code" required>
         </div>
         <div class="mb-3">
             <label for="category" class="form-label">Category ID</label>

@@ -13,6 +13,7 @@
                         <a class="nav-link" @click="state.crud = 'categories'">Categories</a>
                         <a class="nav-link" @click="state.crud = 'tables'">Tables</a>
                         <a class="nav-link" @click="state.crud = 'dishtypes'">Dish Types</a>
+                        <a class="nav-link" @click="state.crud = 'dishes'">Dishes</a>
                         <!-- <a class="nav-link">Features</a>
                         <a class="nav-link">Pricing</a> -->
                     </div>
@@ -23,6 +24,7 @@
         <Categories v-if="state.crud == 'categories'" :categories="state.categories"></Categories>
         <Tables v-if="state.crud == 'tables'" :tables="state.tables"></Tables>
         <DishTypes v-if="state.crud == 'dishtypes'" :dishtypes="state.dishtypes"></DishTypes>
+        <Dishes v-if="state.crud == 'dishes'" :dishes="state.dishes"></Dishes>
 
     </div>
 </template>
@@ -34,21 +36,24 @@ import { useStore } from "vuex";
 import Categories from "../components/admin/CRUDCategories.vue";
 import Tables from "../components/admin/CRUDTables.vue";
 import DishTypes from "../components/admin/CRUDDishTypes.vue";
+import Dishes from "../components/admin/CRUDDishes.vue";
 
 
 export default {
-    components: { Categories, Tables, DishTypes },
+    components: { Categories, Tables, DishTypes, Dishes },
     setup() {
         const store = useStore();
         const state = reactive({
             categories: computed(() => store.getters["categoryAdmin/getCategory"]),
             tables: computed(() => store.getters["tableAdmin/getTable"]),
             dishtypes: computed(() => store.getters["dishTypeAdmin/getDishType"]),
+            dishes: computed(() => store.getters["dishAdmin/getDish"]),
             crud: "categories"
         });
         store.dispatch("categoryAdmin/" + Constant.GET_ALL_CATEGORIES);
         store.dispatch("tableAdmin/" + Constant.GET_ALL_TABLES);
         store.dispatch("dishTypeAdmin/" + Constant.GET_ALL_DISHTYPES);
+        store.dispatch("dishAdmin/" + Constant.GET_ALL_DISHES);
         return { state };
     },
 };
