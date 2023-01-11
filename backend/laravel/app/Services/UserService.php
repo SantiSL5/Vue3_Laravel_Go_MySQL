@@ -97,14 +97,14 @@ class UserService
 
     public function loginUserService(LoginUser $request)
     {
-        $credentials = $request->only('username', 'password');
+        $credentials = $request->only('email', 'password');
         $token=Auth::attempt($credentials);
         if (!$token) {
             return response()->json([ "error" => "Unauthorized" ], 400);
         }
 
         try {
-            $user=UserResource::make($this->userRepository->getUserByUsernameRepo($request->get('username')));
+            $user=UserResource::make($this->userRepository->getUserByEmailRepo($request->get('email')));
             if ($user['type'] == "admin") {
                 return response()->json(['token' => $token, 'user' => $this->userRepository->loginUserRepo()]);
             }

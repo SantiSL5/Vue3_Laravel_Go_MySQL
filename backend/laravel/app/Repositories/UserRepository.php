@@ -24,9 +24,9 @@ class UserRepository implements UserRepositoryInterface
         return User::where('id', $id)->firstOrFail();
     }
 
-    public function getUserByUsernameRepo($username) 
+    public function getUserByEmailRepo($email) 
     {
-        return User::where('username', $username)->firstOrFail();
+        return User::where('email', $email)->firstOrFail();
     }
 
     public function createUserRepo(CreateUser $request)

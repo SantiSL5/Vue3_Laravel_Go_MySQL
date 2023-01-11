@@ -9,7 +9,7 @@ interface UserRepositoryInterface
 {
     function getAllUsersRepo();
     function getUserByIdRepo($id);
-    function getUserByUsernameRepo($username);
+    function getUserByEmailRepo($email);
     function createUserRepo(CreateUser $request);
     function loginUserRepo();
     function updateUserRepo(UpdateUser $request,$id);
