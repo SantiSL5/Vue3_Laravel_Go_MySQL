@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div id="login" v-if="state.formView == 'login'">
+    <div class="d-flex justify-content-center">
+        <div class="col-4" id="login" v-if="state.formView == 'login'">
             <form action="/action_page.php">
                 <div class="mb-3 mt-3">
                     <label for="loginEmail" class="form-label">Email:</label>
@@ -14,12 +14,12 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
                 <div class="mt-2">
-                    Don't have an account, <b @click="state.formView = 'register'">create one</b>.
+                    Don't have an account, <b @click="state.formView = 'register'" class="pointer">create one</b>.
                 </div>
             </form>
         </div>
 
-        <div id="register" v-if="state.formView == 'register'">
+        <div class="col-4" id="register" v-if="state.formView == 'register'">
             <form action="/action_page.php">
                 <div class="mb-3 mt-3">
                     <label for="registerUsername" class="form-label">Username:</label>
@@ -44,7 +44,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
                 <div class="mt-2">
-                    Already have an account, <b @click="state.formView = 'login'">log in</b>.
+                    Already have an account, <b @click="state.formView = 'login'" class="pointer">log in</b>.
                 </div>
             </form>
         </div>
@@ -69,5 +69,7 @@ export default {
 </script>
   
 <style>
-
+.pointer {
+    cursor: pointer;
+}
 </style>
