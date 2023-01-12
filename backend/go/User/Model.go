@@ -1,15 +1,13 @@
 package User
 
 import (
-	"errors"
-	"fmt"
 
 	// "fmt"
 	// "os"
 	// "time"
 
 	// "github.com/dgrijalva/jwt-go"
-	"golang.org/x/crypto/bcrypt"
+
 )
 
 type UserModel struct {
@@ -26,25 +24,20 @@ func (b *UserModel) TableName() string {
 	return "users"
 }
 
-func (u *UserModel) clean() error {
-	u.Id = 0
-	u.Email = ""
-	u.Username = ""
-	u.Image = ""
-	u.Enabled = false
-	u.Password = ""
-	return nil
-}
+// func (u *UserModel) clean() error {
+// 	u.Id = 0
+// 	u.Email = ""
+// 	u.Username = ""
+// 	u.Image = ""
+// 	u.Enabled = false
+// 	u.Password = ""
+// 	return nil
+// }
 
-func (u *UserModel) setPassword(password string) error {
-	if len(password) == 0 {
-		return errors.New("Password required")
-	}
-	bytePassword := []byte(password)
-	passwordHash, _ := bcrypt.GenerateFromPassword(bytePassword, bcrypt.DefaultCost)
-	u.Password = string(passwordHash)
-	return nil
-}
+// func (u *UserModel) setPassword(password string) error {
+
+// 	return nil
+// }
 
 // func GenToken(id uint) string {
 // 	jwt_token := jwt.New(jwt.GetSigningMethod("HS256"))
@@ -56,9 +49,9 @@ func (u *UserModel) setPassword(password string) error {
 // 	return token
 // }
 
-func (u *UserModel) checkPassword(password string) error {
-	bytePassword := []byte(password)
-	byteHashedPassword := []byte(u.Password)
-	fmt.Println(bcrypt.CompareHashAndPassword(byteHashedPassword, bytePassword))
-	return bcrypt.CompareHashAndPassword(byteHashedPassword, bytePassword)
-}
+// func (u *UserModel) checkPassword(password string) error {
+// 	bytePassword := []byte(password)
+// 	byteHashedPassword := []byte(u.Password)
+// 	fmt.Println(bcrypt.CompareHashAndPassword(byteHashedPassword, bytePassword))
+// 	return bcrypt.CompareHashAndPassword(byteHashedPassword, bytePassword)
+// }

@@ -19,9 +19,9 @@ func Profile(c *gin.Context) {
 }
 
 func Register(c *gin.Context) {
-	err, bool := RegisterService(c)
-	if err != nil || bool {
-		c.JSON(http.StatusInternalServerError, "Email is registered")
+	err, result := RegisterService(c)
+	if err != nil || result {
+		c.JSON(http.StatusInternalServerError, err.Error())
 	} else {
 		c.JSON(http.StatusOK, "User created correctly")
 	}

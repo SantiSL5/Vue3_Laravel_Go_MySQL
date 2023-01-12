@@ -21,9 +21,9 @@ func RegisterRepo(user *UserModel, c *gin.Context) (err error, exist bool) {
 // 	// return err, user
 // }
 
-func CheckUserEmail(user *UserModel, c *gin.Context) (exists UserModel, err error) {
-	err = Config.DB.Where("email = ?", user.Email).Find(&exists).Error
-	return exists, err
+func CheckUserEmail(user *UserModel, c *gin.Context) (exists UserModel) {
+	Config.DB.Where("email = ?", user.Email).Find(&exists)
+	return exists
 }
 
 func GetOneUserByID(id uint, c *gin.Context) (UserModel, error) {
