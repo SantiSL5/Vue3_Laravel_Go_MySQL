@@ -30,13 +30,10 @@ func Register(c *gin.Context) {
 func Login(c *gin.Context) {
 	err, usr := LoginService(c)
 	if err != nil || len(usr.Username) == 0 {
-		c.JSON(http.StatusInternalServerError, "Email or password is not correct")
+		c.JSON(http.StatusInternalServerError, err.Error())
 	} else {
 		UpdateContextUserModel(c, usr.Id)
-		// c.Set("my_user_id", user.Id)
-		// c.Set("my_user_model", user)
 		serializer := UserSerializer{c, usr}
 		c.JSON(http.StatusOK, serializer.Response())
-		// c.JSON(http.StatusOK, usr)
 	}
 }

@@ -1,9 +1,9 @@
 package User
 
 import (
-	"fmt"
 	"errors"
 	"golang.org/x/crypto/bcrypt"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -32,25 +32,25 @@ func RegisterService(c *gin.Context) (error, bool) {
 }
 
 func LoginService(c *gin.Context) (error, UserModel) {
-	var newUser UserModel
-	c.BindJSON(&newUser)
-	exists := CheckUserEmail(&newUser, c)
+	var userlog UserModel
+	c.BindJSON(&userlog)
+	exists := CheckUserEmail(&userlog, c)
 	if exists.Id != 0 {
-		fmt.Println(exists)
-		bytePassword := []byte(newUser.Password)
+		bytePassword := []byte(userlog.Password)
 		byteHashedPassword := []byte(exists.Password)
-		fmt.Println(bcrypt.CompareHashAndPassword(byteHashedPassword, bytePassword))
-		err:=errors.New("Email is already taken")
-		if bcrypt.CompareHashAndPassword(byteHashedPassword, bytePassword) != nil {
-			// usrModel.clean()
-			return err, newUser
+		// c.JSON(http.StatusOK, exists.Password)
+		result:=bcrypt.CompareHashAndPassword(byteHashedPassword, bytePassword)
+		if result != nil {
+			err:=errors.New("Incorrect password")
+			return err, userlog
 		} else {
+			err:=result
 			return err, exists
 		}
+		
 	}
 	err:=errors.New("Email is not registered")
 	return err, exists
-	// usrModel.setPassword(usrModel.Password)
 }
 
 func GetUserServiceByID(c *gin.Context, id uint) (UserModel, error) {

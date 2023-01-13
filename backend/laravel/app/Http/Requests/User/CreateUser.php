@@ -13,7 +13,7 @@ class CreateUser extends FormRequest {
 
     public function rules() {
         return [
-            'username' => 'unique:users|required',
+            'username' => 'required',
             'email' => 'unique:users|required',
             'password' => 'required',
             'type' => 'sometimes',

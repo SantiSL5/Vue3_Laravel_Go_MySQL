@@ -5,13 +5,11 @@ import (
 )
 
 type UserResponse struct {
-	Id         uint      `json:"id"`
 	Username   string    `json:"username"`
 	Email      string    `json:"email"`
-	Password   string    `json:"password"`
 	Type       string    `json:"type"`
 	Image      string    `json:"image"`
-	Enabled    bool      `json:"enabled"`
+	Token      string    `json:"token"`
 }
 
 type UserSerializer struct {
@@ -26,13 +24,11 @@ type UsersSerializer struct {
 
 func (ss *UserSerializer) Response() UserResponse {
 	response := UserResponse{
-		Id:    ss.user.Id,
 		Username:  ss.user.Username,
 		Email:  ss.user.Email,
-		Password:  ss.user.Password,
 		Type:  ss.user.Type,
 		Image:  ss.user.Image,
-		Enabled:  ss.user.Enabled,
+		Token:  GenToken(ss.user.Id),
 	}
 
 	return response

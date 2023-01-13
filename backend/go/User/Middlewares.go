@@ -48,7 +48,7 @@ func AuthMiddleware(auto401 bool) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Set("my_user_model", 0)
 		token, err := request.ParseFromRequest(c.Request, MyAuth2Extractor, func(token *jwt.Token) (interface{}, error) {
-			b := ([]byte(os.Getenv("SecretPassword")))
+			b := ([]byte(os.Getenv("SECRET")))
 			return b, nil
 		})
 		if err != nil {
