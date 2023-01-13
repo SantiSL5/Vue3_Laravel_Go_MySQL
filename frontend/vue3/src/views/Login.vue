@@ -58,14 +58,19 @@
 
   
 <script>
+import Constant from "../Constant";
 import { reactive } from 'vue';
 import { useVuelidate } from '@vuelidate/core'
 import { required, email, minLength, maxLength } from '@vuelidate/validators'
 // import { useStore } from 'vuex';
 // import Constant from '../Constant';
+import { useStore } from "vuex";
+
 
 export default {
     setup() {
+        const store = useStore();
+
         const state = reactive({
             formView: "login",
             loginForm: { email: "", password: "" },
@@ -80,8 +85,8 @@ export default {
         }
 
         const validationsRegister = {
-            email: { required, email },
             username: { required },
+            email: { required, email },
             password: { required, minLength: minLength(6), maxLength: maxLength(30) },
             password2: { required, minLength: minLength(6), maxLength: maxLength(30) },
         }
@@ -154,13 +159,15 @@ export default {
                 state.errRegister.password2 = "";
             }
 
-            // if () {
-            //     // store.dispatch("user/" + Constant.USER_LOGIN, state.form);
+            if (state.registerErr.email.$invalid != true && state.registerErr.username.$invalid != true && state.registerErr.password.$invalid != true && state.registerErr.password2.$invalid != true && state.registerErr.password.$model === state.registerErr.password2.$model) {
+                delete state.registerForm.password2;
 
-            //     // if (computed(() => store.getters["user/getUser"].name != "")) {
-            //     //     router.push({ name: 'home' })
-            //     // }
-            // }
+                store.dispatch("userClient/" + Constant.REGISTER, state.registerForm);
+
+                // if (computed(() => store.getters["userClient/getUser"].name != "")) {
+                //     router.push({ name: 'home' })
+                // }
+            }
         }
 
 

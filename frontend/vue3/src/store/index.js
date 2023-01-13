@@ -6,6 +6,7 @@ import { dishAdmin } from './modules/admin/dish'
 import { categoryClient } from './modules/client/category'
 import { tableClient } from './modules/client/table'
 import { dishClient } from './modules/client/dish'
+import { userClient } from './modules/client/user'
 
 
 export default createStore({
@@ -20,9 +21,10 @@ export default createStore({
         tableAdmin: tableAdmin,
         dishTypeAdmin: dishTypeAdmin,
         dishAdmin: dishAdmin,
-        
+
         categoryClient: categoryClient,
         tableClient: tableClient,
         dishClient: dishClient,
+        userClient: userClient,
     }
 });

@@ -23,4 +23,8 @@ export default {
     GET_ONE_DISH: "listDish",
     UPDATE_ONE_DISH: "updateDish",
     DELETE_ONE_DISH: "deleteDish",
+    // Users
+    REGISTER: "registerUser",
+    LOGIN: "loginUser",
+    LOGOUT: "logoutUser",
 }
