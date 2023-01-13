@@ -25,29 +25,29 @@
             <form>
                 <div class="mb-3 mt-3">
                     <label for="registerUsername" class="form-label">Username:</label>
-                    <input class="form-control" id="username" placeholder="Enter username" name="username">
+                    <input class="form-control" id="username" placeholder="Enter username" name="username"
+                        v-model="state.registerForm.username">
+                    <span class="text-danger">{{ state.errRegister.username }}</span>
                 </div>
                 <div class="mb-3 mt-3">
                     <label for="registerEmail" class="form-label">Email:</label>
                     <input type="email" class="form-control" id="registerEmail" placeholder="Enter email"
-                        name="registerEmail">
+                        name="registerEmail" v-model="state.registerForm.email">
+                    <span class="text-danger">{{ state.errRegister.email }}</span>
                 </div>
                 <div class="mb-3">
                     <label for="registerPwd" class="form-label">Password:</label>
                     <input type="password" class="form-control" id="registerPwd" placeholder="Enter password"
-                        name="registerPwd">
+                        name="registerPwd" v-model="state.registerForm.password">
+                    <span class="text-danger">{{ state.errRegister.password }}</span>
                 </div>
                 <div class="mb-3">
                     <label for="registerPwd2" class="form-label">Repeat password:</label>
                     <input type="password" class="form-control" id="registerPwd2" placeholder="Enter password"
-                        name="registerPwd2">
+                        name="registerPwd2" v-model="state.registerForm.password2">
+                    <span class="text-danger">{{ state.errRegister.password2 }}</span>
                 </div>
-                <div class="form-check mb-3">
-                    <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" name="remember"> Remember me
-                    </label>
-                </div>
-                <button type="button" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-primary" @click="register">Submit</button>
                 <div class="mt-2">
                     Already have an account, <b @click="state.formView = 'login'" class="pointer">log in</b>.
                 </div>
@@ -61,7 +61,6 @@
 import { reactive } from 'vue';
 import { useVuelidate } from '@vuelidate/core'
 import { required, email, minLength, maxLength } from '@vuelidate/validators'
-// import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
 // import { useStore } from 'vuex';
 // import Constant from '../Constant';
 
@@ -75,12 +74,20 @@ export default {
             errRegister: { username: "", email: "", password: "", password2: "" },
         })
 
-        const validations = {
+        const validationsLogin = {
             email: { required, email },
             password: { required, minLength: minLength(6), maxLength: maxLength(30) }
         }
 
-        state.loginErr = useVuelidate(validations, state.loginForm);
+        const validationsRegister = {
+            email: { required, email },
+            username: { required },
+            password: { required, minLength: minLength(6), maxLength: maxLength(30) },
+            password2: { required, minLength: minLength(6), maxLength: maxLength(30) },
+        }
+
+        state.loginErr = useVuelidate(validationsLogin, state.loginForm);
+        state.registerErr = useVuelidate(validationsRegister, state.registerForm);
 
         const login = () => {
             if (state.loginErr.email.$invalid == true) {
@@ -112,7 +119,52 @@ export default {
             // }
         }
 
-        return { state, login }
+        const register = () => {
+            if (state.registerErr.email.$invalid == true) {
+                if (state.registerErr.email.$model != "") {
+                    state.errRegister.email = "Email is invalid";
+                } else {
+                    state.errRegister.email = "Email is required";
+                }
+            } else {
+                state.errRegister.email = "";
+            }
+
+            if (state.registerErr.username.$invalid == true) {
+                state.errRegister.username = "Username required";
+            } else {
+                state.errRegister.username = "";
+            }
+
+            if (state.registerErr.password.$invalid == true) {
+                if (state.registerErr.password.$model.length < 6 && state.registerErr.password.$model.length != 0) {
+                    state.errRegister.password = "Min 6 characters";
+                } else if (state.registerErr.password.$model.length > 30) {
+                    state.errRegister.password = "Max 30 characters";
+                } else {
+                    state.errRegister.password = "Password is required (6-30)"
+                }
+            } else {
+                state.errRegister.password = "";
+            }
+
+            if (state.registerErr.password.$model !== state.registerErr.password2.$model) {
+                state.errRegister.password2 = "Passwords must be equal";
+            } else {
+                state.errRegister.password2 = "";
+            }
+
+            // if () {
+            //     // store.dispatch("user/" + Constant.USER_LOGIN, state.form);
+
+            //     // if (computed(() => store.getters["user/getUser"].name != "")) {
+            //     //     router.push({ name: 'home' })
+            //     // }
+            // }
+        }
+
+
+        return { state, login, register }
     },
 }
 </script>
