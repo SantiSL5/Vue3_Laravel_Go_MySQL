@@ -8,4 +8,7 @@ export default {
     login(data) {
         return Api(`${secret.GO_APP_URL}`).post(`user/login`, data)
     },
+    profile() {
+        return Api(`${secret.GO_APP_URL}`).get(`user/profile`,)
+    },
 }

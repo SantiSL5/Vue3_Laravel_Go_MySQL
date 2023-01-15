@@ -2,6 +2,9 @@ import Api from '@/services/Api'
 import secret from '../../Secret'
 
 export default {
+    login(data) {
+        return Api(`${secret.LARAVEL_APP_URL}`).post(`user/login/`, data)
+    },
     getAllUsers() {
         return Api(`${secret.LARAVEL_APP_URL}`).get(`user/`)
     },

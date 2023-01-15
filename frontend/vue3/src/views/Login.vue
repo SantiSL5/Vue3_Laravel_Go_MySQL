@@ -115,13 +115,9 @@ export default {
             } else {
                 state.errLogin.password = "";
             }
-            // if () {
-            //     // store.dispatch("user/" + Constant.USER_LOGIN, state.form);
-
-            //     // if (computed(() => store.getters["user/getUser"].name != "")) {
-            //     //     router.push({ name: 'home' })
-            //     // }
-            // }
+            if (state.loginErr.email.$invalid != true && state.loginErr.password.$invalid != true) {
+                store.dispatch("userClient/" + Constant.LOGIN, state.loginForm);
+            }
         }
 
         const register = () => {

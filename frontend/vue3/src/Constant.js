@@ -26,9 +26,11 @@ export default {
     // Users
     REGISTER: "registerUser",
     LOGIN: "loginUser",
+    LOGIN_ADMIN: "loginAdmin",
     LOGOUT: "logoutUser",
     CREATE_ONE_USER: "createUser",
     GET_ALL_USERS: "listUsers",
+    PROFILE_USER: "profileUser",
     UPDATE_ONE_USER: "updateUser",
     DELETE_ONE_USER: "deleteUser",
 
