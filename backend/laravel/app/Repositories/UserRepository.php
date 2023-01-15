@@ -41,7 +41,7 @@ class UserRepository implements UserRepositoryInterface
 
     public function updateUserRepo(UpdateUser $request, $id)
     {
-        return User::where('id', $id)->update($request->all());
+        return User::where('id', $id)->update($request->except('_method', '_token'));
     }
 
     public function deleteUserRepo($id)

@@ -2,22 +2,22 @@ import Api from '@/services/Api'
 import secret from '../../Secret'
 
 export default {
-    getAllCategories() {
-        return Api(`${secret.LARAVEL_APP_URL}`).get(`category/`)
+    getAllUsers() {
+        return Api(`${secret.LARAVEL_APP_URL}`).get(`user/`)
     },
-    getCategoryById(id) {
-        return Api(`${secret.LARAVEL_APP_URL}`).get(`category/${id}`)
+    getUserById(id) {
+        return Api(`${secret.LARAVEL_APP_URL}`).get(`user/${id}`)
     },
-    createCategory(data) {
-        return Api(`${secret.LARAVEL_APP_URL}`).post('category/', data)
+    createUser(data) {
+        return Api(`${secret.LARAVEL_APP_URL}`).post('user/', data)
     },
-    updateCategory(data, id) {
-        return Api(`${secret.LARAVEL_APP_URL}`).post(`category/${id}?_method=PUT`, data)
+    updateUser(data, id) {
+        return Api(`${secret.LARAVEL_APP_URL}`).post(`user/${id}?_method=PUT`, data)
     },
-    changeStatusCategory(data, id) {
-        return Api(`${secret.LARAVEL_APP_URL}`).put(`category/changeStatus/${id}`, data)
+    changeStatusUser(data, id) {
+        return Api(`${secret.LARAVEL_APP_URL}`).put(`user/changeStatus/${id}`, data)
     },
-    deleteCategoryById(id) {
-        return Api(`${secret.LARAVEL_APP_URL}`).delete(`category/${id}`)
+    deleteUserById(id) {
+        return Api(`${secret.LARAVEL_APP_URL}`).delete(`user/${id}`)
     }
 }

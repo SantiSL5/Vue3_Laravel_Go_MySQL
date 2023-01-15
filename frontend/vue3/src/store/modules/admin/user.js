@@ -1,83 +1,79 @@
 import Constant from "../../../Constant";
-import CategoryService from "../../../services/admin/CategoryService";
+import UserService from "../../../services/admin/UserService";
 import { createToaster } from "@meforma/vue-toaster"; // Debería estar en el componente
 
-export const categoryAdmin = {
+export const userAdmin = {
     namespaced: true,
 
     state: {
 
     },
     mutations: {
-        [Constant.CREATE_ONE_CATEGORY]: (state, payload) => {
-            state.categorieslist.push({ ...payload });
+        [Constant.CREATE_ONE_USER]: (state, payload) => {
+            state.userslist.push({ ...payload });
         },
-        [Constant.GET_ALL_CATEGORIES]: (state, payload) => {
-            state.categorieslist = payload;
+        [Constant.GET_ALL_USERS]: (state, payload) => {
+            state.userslist = payload;
         },
-        [Constant.GET_ONE_CATEGORY]: (state) => {
-            state.allUsers;
-        },
-        [Constant.UPDATE_ONE_CATEGORY]: (state, payload) => {
-            let index = state.categorieslist.findIndex(
+        [Constant.UPDATE_ONE_USER]: (state, payload) => {
+            let index = state.userslist.findIndex(
                 item => item.id == payload.id
             );
-            let res = Object.assign({ id: payload.id }, payload.category);
-            state.categorieslist[index] = res;
+            state.userslist[index] = payload;
         },
-        [Constant.DELETE_ONE_CATEGORY]: (state, payload) => {
-            let index = state.categorieslist.findIndex(
+        [Constant.DELETE_ONE_USER]: (state, payload) => {
+            let index = state.userslist.findIndex(
                 (item) => item.id === payload
             );
-            state.categorieslist.splice(index, 1);
+            state.userslist.splice(index, 1);
         },
     },
     actions: {
-        [Constant.CREATE_ONE_CATEGORY]: (store, payload) => {
-            CategoryService.createCategory(payload.category).then(data => {
+        [Constant.CREATE_ONE_USER]: (store, payload) => {
+            UserService.createUser(payload.user).then(data => {
                 const toaster = createToaster({
                     position: "top"
                 });
-                if (data.status == 201) {
-                    toaster.success(`Category created successfully`);
-                    store.commit(Constant.CREATE_ONE_CATEGORY, data.data)
+                if (data.statusText == "Created") {
+                    toaster.success(`User created successfully`);
+                    store.commit(Constant.CREATE_ONE_USER, data.data);
                 } else {
-                    toaster.error(`Category already exists`);
+                    toaster.error(data.data.Message);
                 }
             });
         },
-        [Constant.UPDATE_ONE_CATEGORY]: (store, payload) => {
-            CategoryService.updateCategory(payload.category, payload.id).then(data => {
+        [Constant.UPDATE_ONE_USER]: (store, payload) => {
+            UserService.updateUser(payload.user, payload.id).then(data => {
                 const toaster = createToaster({
                     position: "top"
                 });
-                if (data.data != "Category already exists") {
-                    toaster.success(`Category updated successfully`);
-                    store.commit(Constant.UPDATE_ONE_CATEGORY, payload)
+                if (data.data.id) {
+                    toaster.success(`User updated successfully`);
+                    store.commit(Constant.UPDATE_ONE_USER, data.data)
                 } else {
-                    toaster.error(data.data);
+                    toaster.error(`User already exists`);
                 }
             });
         },
-        [Constant.GET_ALL_CATEGORIES]: (store) => {
-            CategoryService.getAllCategories().then(data => {
-                store.commit(Constant.GET_ALL_CATEGORIES, data.data);
+        [Constant.GET_ALL_USERS]: (store) => {
+            UserService.getAllUsers().then(data => {
+                store.commit(Constant.GET_ALL_USERS, data.data);
             });
         },
-        [Constant.GET_ONE_CATEGORY]: (store) => {
-            CategoryService.getCategoryById().then(data => {
-                store.commit(Constant.GET_ONE_CATEGORY, data.data);
+        [Constant.GET_ONE_USER]: (store) => {
+            UserService.getUserById().then(data => {
+                store.commit(Constant.GET_ONE_USER, data.data);
             });
         },
-        [Constant.DELETE_ONE_CATEGORY]: (store, payload) => {
-            CategoryService.deleteCategoryById(payload.id).then(
-                store.commit(Constant.DELETE_ONE_CATEGORY, payload.id)
+        [Constant.DELETE_ONE_USER]: (store, payload) => {
+            UserService.deleteUserById(payload.id).then(
+                store.commit(Constant.DELETE_ONE_USER, payload.id)
             );
         },
     },
     getters: {
-        getCategory(state) {
-            return state.categorieslist;
+        getUser(state) {
+            return state.userslist;
         }
     }
 }
