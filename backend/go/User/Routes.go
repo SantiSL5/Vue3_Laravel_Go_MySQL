@@ -7,4 +7,6 @@ import (
 func UserRouting(router *gin.RouterGroup) {
 	router.POST("login", Login)
 	router.POST("register", Register)
+	router.Use(AuthMiddleware(true))
+	router.GET("profile", Profile)
 }

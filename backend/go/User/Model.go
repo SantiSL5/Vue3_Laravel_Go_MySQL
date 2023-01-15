@@ -27,7 +27,8 @@ func GenToken(id uint) string {
 	jwt_token := jwt.New(jwt.GetSigningMethod("HS256"))
 	jwt_token.Claims = jwt.MapClaims{
 		"id":  id,
-		"exp": time.Now().Add(time.Hour * 24).Unix(),
+		//Token expire in 30 minutes
+		"exp": time.Now().Add(time.Second * 1800).Unix(),
 	}
 	token, _ := jwt_token.SignedString([]byte(os.Getenv("SECRET")))
 	return token

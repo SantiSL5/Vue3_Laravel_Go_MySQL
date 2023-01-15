@@ -7,14 +7,12 @@ import (
 )
 
 func Profile(c *gin.Context) {
-	// var category, err = GetOneCategoryService(c.Param("id"), c)
-
-	// if err != nil {
-	// 	c.JSON(http.StatusNotFound, "Category doesn't exist")
-	// } else {
-	// 	serializer := CategorySerializer{c, category}
-	// 	c.JSON(http.StatusOK, serializer.Response())
-	// }
+	usr, _ := c.Get("user_model")
+	u, valid := usr.(UserModel)
+	if valid {
+		serializer := UserSerializer{c, u}
+		c.JSON(http.StatusOK, serializer.Response())
+	}
 
 }
 
@@ -30,7 +28,7 @@ func Register(c *gin.Context) {
 func Login(c *gin.Context) {
 	err, usr := LoginService(c)
 	if err != nil || len(usr.Username) == 0 {
-		c.JSON(http.StatusInternalServerError, err.Error())
+		c.JSON(http.StatusUnauthorized, err.Error())
 	} else {
 		UpdateContextUserModel(c, usr.Id)
 		serializer := UserSerializer{c, usr}
