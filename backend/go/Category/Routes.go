@@ -6,5 +6,5 @@ import (
 
 func CategoryRouting(router *gin.RouterGroup) {
 	router.GET("/", GetAllCategories)
-	router.GET("/:id", GetCategoryByID)
+	router.GET(":id", GetCategoryByID)
 }

@@ -29,7 +29,7 @@ func SetupRouter() *gin.Engine {
 	Table.TableRouting(api.Group("/table"))
 	DishType.DishTypeRouting(api.Group("/dishtype"))
 	Dish.DishRouting(api.Group("/dish"))
-	User.UserRouting(api.Group("/user"))
+	User.UserRouting(api.Group("user"))
 
 	return r
 
@@ -40,7 +40,7 @@ func CORS(c *gin.Context) {
 	// First, we add the headers with need to enable CORS
 	// Make sure to adjust these headers to your needs
 	c.Header("Access-Control-Allow-Origin", "*")
-	c.Header("Access-Control-Allow-Methods", "*")
+	c.Header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
 	c.Header("Access-Control-Allow-Headers", "*")
 	c.Header("Content-Type", "application/json")
 
@@ -56,5 +56,6 @@ func CORS(c *gin.Context) {
 		// Like this, Angular can now do the real
 		// request using any other method than OPTIONS
 		c.AbortWithStatus(http.StatusOK)
+		return
 	}
 }
