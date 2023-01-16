@@ -117,4 +117,21 @@ class UserService
             ]);
         }
     }
+
+    public function profileUserService()
+    {
+        $user_serialize = Auth::user();
+        if ($user_serialize == null) {
+            return response()->json([
+                "Message" => "Invalid token"
+            ]);
+        }
+        if ($user_serialize->type != "admin") {
+            return response()->json([
+                "Message" => "This user is not an admin"
+            ]);
+        }
+        unset($user_serialize->password);
+        return response()->json($user_serialize);
+    }
 }

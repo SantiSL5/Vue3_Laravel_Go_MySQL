@@ -96,4 +96,9 @@ class UserController extends Controller {
         return $this->userService->loginUserService($request);
     }
 
+    public function profile() 
+    {
+        return $this->userService->profileUserService();
+    }
+
 }
