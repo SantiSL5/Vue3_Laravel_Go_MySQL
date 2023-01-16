@@ -33,5 +33,12 @@ export default {
     PROFILE_USER: "profileUser",
     UPDATE_ONE_USER: "updateUser",
     DELETE_ONE_USER: "deleteUser",
+    // Dishes 
+    CREATE_ONE_RESERVATION: "createReservation",
+    GET_ALL_RESERVATIONS: "listReservations",
+    GET_ONE_RESERVATION: "listReservation",
+    UPDATE_ONE_RESERVATION: "updateReservation",
+    DELETE_ONE_RESERVATION: "deleteReservation",
+
 
 }

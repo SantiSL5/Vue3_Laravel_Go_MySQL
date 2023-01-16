@@ -15,6 +15,7 @@
                         <a class="nav-link pointer" @click="state.crud = 'dishtypes'">Dish Types</a>
                         <a class="nav-link pointer" @click="state.crud = 'dishes'">Dishes</a>
                         <a class="nav-link pointer" @click="state.crud = 'users'">Users</a>
+                        <a class="nav-link pointer" @click="state.crud = 'reservations'">Reservations</a>
                     </div>
                 </div>
             </div>
@@ -25,6 +26,7 @@
         <DishTypes v-if="state.crud == 'dishtypes'" :dishtypes="state.dishtypes"></DishTypes>
         <Dishes v-if="state.crud == 'dishes'" :dishes="state.dishes"></Dishes>
         <Users v-if="state.crud == 'users'" :users="state.users"></Users>
+        <Reservations v-if="state.crud == 'reservations'" :reservations="state.reservations"></Reservations>
 
     </div>
 </template>
@@ -38,10 +40,11 @@ import Tables from "../components/admin/CRUDTables.vue";
 import DishTypes from "../components/admin/CRUDDishTypes.vue";
 import Dishes from "../components/admin/CRUDDishes.vue";
 import Users from "../components/admin/CRUDUsers.vue";
+import Reservations from "../components/admin/CRUDReservations.vue";
 
 
 export default {
-    components: { Categories, Tables, DishTypes, Dishes, Users },
+    components: { Categories, Tables, DishTypes, Dishes, Users, Reservations },
     setup() {
         const store = useStore();
         const state = reactive({
@@ -50,6 +53,7 @@ export default {
             dishtypes: computed(() => store.getters["dishTypeAdmin/getDishType"]),
             dishes: computed(() => store.getters["dishAdmin/getDish"]),
             users: computed(() => store.getters["userAdmin/getUser"]),
+            reservations: computed(() => store.getters["reservationAdmin/getReservation"]),
             crud: "categories"
         });
         store.dispatch("categoryAdmin/" + Constant.GET_ALL_CATEGORIES);
@@ -57,6 +61,7 @@ export default {
         store.dispatch("dishTypeAdmin/" + Constant.GET_ALL_DISHTYPES);
         store.dispatch("dishAdmin/" + Constant.GET_ALL_DISHES);
         store.dispatch("userAdmin/" + Constant.GET_ALL_USERS);
+        store.dispatch("reservationAdmin/" + Constant.GET_ALL_RESERVATIONS);
         return { state };
     },
 };

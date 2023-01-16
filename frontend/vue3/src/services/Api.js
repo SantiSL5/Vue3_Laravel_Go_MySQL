@@ -1,7 +1,7 @@
 import axios from 'axios'
 import Constant from '../Constant';
 import router from '../router/index';
-import { store } from "../store";
+import store from "../store";
 
 export default (URL) => {
 

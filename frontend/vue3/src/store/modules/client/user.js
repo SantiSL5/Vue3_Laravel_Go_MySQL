@@ -127,7 +127,6 @@ export const userClient = {
             return state.userslist;
         },
         getAuth(state) {
-            console.log(state.user);
             return state.user;
         },
     }
