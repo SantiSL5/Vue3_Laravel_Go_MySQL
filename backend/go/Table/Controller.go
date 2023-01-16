@@ -7,10 +7,15 @@ import (
 )
 
 func GetTables(c *gin.Context) {
-	var tables []TableModel = GetAllTablesService(c)
+	var tables []TableModel
+	var count int
+	tables, count = GetAllTablesService(c)
 	serializer := TablesSerializer{c, tables}
 
-	c.JSON(http.StatusOK, serializer.Response())
+	c.JSON(http.StatusOK,gin.H{
+	  	"tables":serializer.Response(), 
+		"count": count,
+	})
 }
 
 func GetTableByID(c *gin.Context) {
