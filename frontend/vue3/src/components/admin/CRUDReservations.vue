@@ -109,7 +109,6 @@ export default {
         const createReservation = () => {
             state.reservation.date = state.reservation.dateForm.split("-")
             state.reservation.date = state.reservation.date[2] + "/" + state.reservation.date[1] + "/" + state.reservation.date[0]
-            console.log(state.reservation.date);
 
             store.dispatch("reservationAdmin/" + Constant.CREATE_ONE_RESERVATION, { reservation: state.reservation })
         }

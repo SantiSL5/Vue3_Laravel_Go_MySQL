@@ -17,21 +17,35 @@
                     <div class="col">
                         {{ tableitem.capacity }}
                     </div>
-
                     <!-- <span
                         v-bind:class="[tableitem.status === 'disable' ? 'badge bg-danger p-2 m-1' : 'badge bg-success p-2 m-1']"
                         @click.stop="viewCategory(tableitem.id)"> {{ tableitem.status }} </span> -->
                 </div>
+            </div>
+            <div class="row justify-content-center mt-2">
+                <button type="button" class="btn btn-light col-6" @click.stop="reserve(tableitem.id)">Reserve</button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import { getCurrentInstance } from 'vue';
+
 export default {
     props: {
         tableitem: Object,
-    }
+    },
+    setup() {
+        const { emit } = getCurrentInstance();
+
+        const reserve = (table) => {
+            emit('reservetable', table)
+        }
+
+        return { reserve };
+    },
+
 };
 </script>
 
