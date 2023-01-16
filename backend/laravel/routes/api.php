@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DishTypeController;
 use App\Http\Controllers\DishController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReserveController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,39 +25,50 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get('/profile',[UserController::class,'profile'])->name('login'); 
+Route::get('/profile',[UserController::class,'profile'])->name('login');
+Route::post('/profile',[UserController::class,'profile'])->name('login');
+Route::put('/profile',[UserController::class,'profile'])->name('login');
+Route::delete('/profile',[UserController::class,'profile'])->name('login'); 
 
 Route::prefix('api/category')->group(function () {
-    Route::get('/', [CategoryController::class, 'index']);
-    Route::get('/{id}', [CategoryController::class, 'show']);
-    Route::post('/', [CategoryController::class, 'store']);
-    Route::put('/{id}', [CategoryController::class, 'update']);
-    Route::delete('/{id}', [CategoryController::class, 'destroy']);
-})->middleware('auth:api');;
+    Route::get('/', [CategoryController::class, 'index'])->middleware('auth:api');
+    Route::get('/{id}', [CategoryController::class, 'show'])->middleware('auth:api');
+    Route::post('/', [CategoryController::class, 'store'])->middleware('auth:api');
+    Route::put('/{id}', [CategoryController::class, 'update'])->middleware('auth:api');
+    Route::delete('/{id}', [CategoryController::class, 'destroy'])->middleware('auth:api');
+});
 
 Route::prefix('api/table')->group(function () {
-    Route::get('/', [TableController::class, 'index']);
-    Route::get('/{id}', [TableController::class, 'show']);
-    Route::post('/', [TableController::class, 'store']);
-    Route::put('/{id}', [TableController::class, 'update']);
-    Route::delete('/{id}', [TableController::class, 'destroy']);
-})->middleware('auth:api');;
+    Route::get('/', [TableController::class, 'index'])->middleware('auth:api');
+    Route::get('/{id}', [TableController::class, 'show'])->middleware('auth:api');
+    Route::post('/', [TableController::class, 'store'])->middleware('auth:api');
+    Route::put('/{id}', [TableController::class, 'update'])->middleware('auth:api');
+    Route::delete('/{id}', [TableController::class, 'destroy'])->middleware('auth:api');
+});
 
 Route::prefix('api/dishtype')->group(function () {
-    Route::get('/', [DishTypeController::class, 'index']);
-    Route::get('/{id}', [DishTypeController::class, 'show']);
-    Route::post('/', [DishTypeController::class, 'store']);
-    Route::put('/{id}', [DishTypeController::class, 'update']);
-    Route::delete('/{id}', [DishTypeController::class, 'destroy']);
-})->middleware('auth:api');
+    Route::get('/', [DishTypeController::class, 'index'])->middleware('auth:api');
+    Route::get('/{id}', [DishTypeController::class, 'show'])->middleware('auth:api');
+    Route::post('/', [DishTypeController::class, 'store'])->middleware('auth:api');
+    Route::put('/{id}', [DishTypeController::class, 'update'])->middleware('auth:api');
+    Route::delete('/{id}', [DishTypeController::class, 'destroy'])->middleware('auth:api');
+});
 
 Route::prefix('api/dish')->group(function () {
-    Route::get('/', [DishController::class, 'index']);
-    Route::get('/{id}', [DishController::class, 'show']);
-    Route::post('/', [DishController::class, 'store']);
-    Route::put('/{id}', [DishController::class, 'update']);
-    Route::delete('/{id}', [DishController::class, 'destroy']);
-})->middleware('auth:api');;
+    Route::get('/', [DishController::class, 'index'])->middleware('auth:api');
+    Route::get('/{id}', [DishController::class, 'show'])->middleware('auth:api');
+    Route::post('/', [DishController::class, 'store'])->middleware('auth:api');
+    Route::put('/{id}', [DishController::class, 'update'])->middleware('auth:api');
+    Route::delete('/{id}', [DishController::class, 'destroy'])->middleware('auth:api');
+});
+
+Route::prefix('api/reserve')->group(function () {
+    Route::get('/', [ReserveController::class, 'index'])->middleware('auth:api');
+    Route::get('/{id}', [ReserveController::class, 'show'])->middleware('auth:api');
+    Route::post('/', [ReserveController::class, 'store'])->middleware('auth:api');
+    Route::put('/{id}', [ReserveController::class, 'update'])->middleware('auth:api');
+    Route::delete('/{id}', [ReserveController::class, 'destroy'])->middleware('auth:api');
+});
 
 Route::prefix('api/user')->group(function () {
     Route::get('/', [UserController::class, 'index'])->middleware('auth:api');
