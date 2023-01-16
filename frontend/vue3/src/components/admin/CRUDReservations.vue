@@ -68,12 +68,15 @@
 import Constant from '../../Constant';
 import { useStore } from 'vuex'
 import { reactive } from "vue";
+import { useReservationsToggle } from "../../composables/useReservations";
+import { createToaster } from "@meforma/vue-toaster";
 
 export default {
     props: {
         reservations: Array,
     },
     setup() {
+        const toaster = createToaster({ position: "top" });
         const store = useStore();
         const state = reactive({
             reservation: { user: "", table: "", dateForm: "", date: "", turn: "", confirmed: true },
@@ -120,7 +123,8 @@ export default {
             } else {
                 confirmed = true;
             }
-            store.dispatch("reservationAdmin/" + Constant.UPDATE_ONE_RESERVATION, { reservation: { confirmed: confirmed }, id: reservation.id });
+            useReservationsToggle({ confirmed: confirmed }, reservation.id);
+            toaster.success(`Reservation updated successfully`);
         }
 
         return { state, changeForm, createReservation, deleteReservation, updateReservation }
