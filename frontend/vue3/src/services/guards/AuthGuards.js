@@ -1,7 +1,7 @@
 import store from '../../store';
 import Constant from '../../Constant';
 // import UserService from '../client/UserService';
-import UserServiceAdmin from '../client/UserService';
+import UserServiceAdmin from '../admin/UserService';
 
 export default {
 
@@ -16,8 +16,7 @@ export default {
                 next('/login');
             }
         } catch (error) {
-            store.dispatch(`user/${Constant.LOGOUT}`);
-
+            store.dispatch(`userClient/${Constant.LOGOUT}`);
         }
     },
 
@@ -34,7 +33,7 @@ export default {
 
     noAuthGuard(to, from, next) {
         // if (!store.getters['user/getAuth'] && !localStorage.getItem('isAuth')) {
-        if (!localStorage.getItem('token')) {
+        if (!localStorage.getItem('token') && !localStorage.getItem('tokenAdmin')) {
             next();
         } else {
             next('/home');

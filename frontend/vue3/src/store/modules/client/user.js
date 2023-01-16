@@ -33,7 +33,7 @@ export const userClient = {
         [Constant.LOGIN_ADMIN]: (state, payload) => {
             localStorage.setItem("tokenAdmin", payload.token);
             state.user = {
-                name: payload.user.username,
+                username: payload.user.username,
                 email: payload.user.email,
                 image: payload.user.image,
                 type: 'admin',
@@ -85,7 +85,7 @@ export const userClient = {
             UserService.login(payload).then(data => {
                 if (data.data.type == "admin") {
                     UserServiceAdmin.login(payload).then(data => {
-                        toaster.success("Admin " + data.data.username + " loged successfully loged");
+                        toaster.success("Admin " + data.data.user.username + " loged successfully");
                         store.commit(Constant.LOGIN_ADMIN, data.data);
                     }).catch(function (error) {
                         console.log(error);
@@ -105,10 +105,15 @@ export const userClient = {
 
         },
         [Constant.PROFILE_USER]: (store) => {
-            UserService.profile().then(data => {
-                store.commit(Constant.PROFILE_USER, data.data);
-            }).catch(function () {});
-
+            if (localStorage.getItem('tokenAdmin')) {
+                UserServiceAdmin.profile().then(data => {
+                    store.commit(Constant.PROFILE_USER, data.data);
+                }).catch(function () {});    
+            }else{
+                UserService.profile().then(data => {
+                    store.commit(Constant.PROFILE_USER, data.data);
+                }).catch(function () {});    
+            }
         },
         [Constant.LOGOUT]: (store) => {
             localStorage.removeItem("token");
@@ -122,6 +127,7 @@ export const userClient = {
             return state.userslist;
         },
         getAuth(state) {
+            console.log(state.user);
             return state.user;
         },
     }

@@ -21,7 +21,7 @@ export default (URL) => {
     (response) => response,
     (error) => {
       if (error.response.status === 401 && localStorage.getItem('token')) {
-        store.dispatch('user/' + Constant.LOGOUT);
+        store.dispatch('userClient/' + Constant.LOGOUT);
         router.push({ name: "login" });
       }
 
