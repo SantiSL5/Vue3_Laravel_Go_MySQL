@@ -11,9 +11,10 @@
         </div>
         <div class="mb-3">
             <label for="date" class="form-label">Date</label>
-            <input type="date" class="form-control" id="date" v-model="state.reservation.dateForm" required>
+            <input type="date" class="form-control" id="date" v-model="state.reservation.dateForm" required
+                :min="state.tomorrow">
         </div>
-        <div class="mb-3">
+        <div class=" mb-3">
             <label for="turn" class="form-label">Turn</label>
             <select name="turn" id="turn" class="form-control col-5" v-model="state.reservation.turn">
                 <option value="" selected="true" disabled="disabled" hidden>Turn</option>
@@ -78,7 +79,11 @@ export default {
             reservation: { user: "", table: "", dateForm: "", date: "", turn: "", confirmed: true },
             formType: "create",
             onUpdateReservation: null,
+            tomorrow: new Date(),
         });
+
+        state.tomorrow.setDate(state.tomorrow.getDate() + 1);
+        state.tomorrow = state.tomorrow.toISOString().split('T')[0];
 
         const changeForm = (reservation = null) => {
             if (reservation) {

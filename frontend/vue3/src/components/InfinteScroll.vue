@@ -18,22 +18,21 @@
 </template>
 
 <script>
-import { useRouter } from "vue-router";
+// import { useRouter } from "vue-router";
 export default {
   props: {
     dishtypeslist: Array,
   },
   setup() {
-    const router = useRouter();
-    const redirectReserve = (id) => {
-      console.log("Click en la Theamtica " + id);
-      let search = { id_dishtype: id };
-      router.push({
-        name: "client_table",
-        params: { filter: btoa(JSON.stringify(search)) },
-      });
-    };
-    return { redirectReserve };
+    // const router = useRouter();
+    // const redirectReserve = (id) => {
+    //   let search = { id_dishtype: id };
+    //   router.push({
+    //     name: "client_table",
+    //     params: { filter: btoa(JSON.stringify(search)) },
+    //   });
+    // };
+    // return { redirectReserve };
   },
 };
 </script>
