@@ -34,6 +34,18 @@ func GetOneReserveRepo(id int, c *gin.Context) (ReserveModel, error) {
 	return reserve, err
 }
 
+// func CheckReserveRepo(reserve *ReserveModel, c *gin.Context) (ReserveModel, error) {
+// 	fmt.Println(reserve.Date)
+// 	err := Config.DB.Preload("UserContent").Where("table = ?",reserve.Table).Find(&reserve).Error
+
+// 	if err != nil {
+// 		fmt.Println(err.Error())
+// 		c.AbortWithStatus(http.StatusNotFound)
+// 	}
+
+// 	return reserve, err
+// }
+
 func CreateReserveRepo(reserve *ReserveModel, c *gin.Context) (error,bool) {
 	err := Config.DB.Create(reserve).Error
 	fmt.Println(err.Error())
