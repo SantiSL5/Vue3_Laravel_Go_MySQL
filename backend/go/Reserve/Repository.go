@@ -33,3 +33,15 @@ func GetOneReserveRepo(id int, c *gin.Context) (ReserveModel, error) {
 
 	return reserve, err
 }
+
+func CreateReserveRepo(reserve *ReserveModel, c *gin.Context) (error,bool) {
+	err := Config.DB.Create(reserve).Error
+	fmt.Println(err.Error())
+	if err != nil {
+		fmt.Println(err.Error())
+		return err,false
+	}
+
+	return err, true
+	
+}

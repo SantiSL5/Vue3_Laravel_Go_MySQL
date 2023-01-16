@@ -22,3 +22,12 @@ func GetReserveByID(c *gin.Context) {
 		c.JSON(http.StatusOK, serializer.Response())
 	}
 }
+
+func CreateReserve(c *gin.Context) {
+	err, result := CreateReserveService(c)
+	if err != nil || result {
+		c.JSON(http.StatusInternalServerError, err.Error())
+	} else {
+		c.JSON(http.StatusOK, "Reserve created correctly")
+	}
+}
