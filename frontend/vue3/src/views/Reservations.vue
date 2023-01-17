@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="row justify-content-around">
-                    <ListTables v-for="tableitem in state.tableslist" :key="tableitem.id" :tableitem="tableitem"
+                    <ListTables v-for="tableitem in state.tableslist.tables" :key="tableitem.id" :tableitem="tableitem"
                         @reservetable="reserve" />
                 </div>
                 <Pagination :totalpages="state.totalpages" @changepage="loadnewtables" />
