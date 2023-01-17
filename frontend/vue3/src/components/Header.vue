@@ -19,7 +19,7 @@
                     </li>
                 </ul>
                 <span class="navbar-text row">
-
+                    {{ state.auth }}
                     <!-- ////////// -->
                     <div class="col" v-if="state.auth.type == 'admin'">
                         <router-link class="nav-link" href="#" to="/admin">
@@ -36,7 +36,7 @@
 
                     <div class="col mt-2" v-if="state.auth.type != ''">
                         <h6 class="col">{{ state.auth.username }}</h6>
-                    </div> 
+                    </div>
 
                     <div class="col" v-if="state.auth.type != ''">
                         <button type="button" class="btn btn-info col" @click="logout">Logout</button>
@@ -57,7 +57,7 @@ export default {
     setup() {
         const store = useStore()
         store.dispatch("userClient/" + Constant.PROFILE_USER)
-        
+
         const state = reactive({
             user: computed(() => store.getters["userClient/getUser"]),
             auth: computed(() => store.getters["userClient/getAuth"]),

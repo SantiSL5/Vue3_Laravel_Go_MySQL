@@ -1,10 +1,10 @@
 <template>
-    <nav class="nav_pag" aria-label="">
+    <nav class="" aria-label="">
         <ul class="pagination justify-content-center">
             <li class="page-item">
                 <a class="page-link" @click="changePage(state.page - 1)" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Previous</span>
+                    <span class="sr-only"></span>
                 </a>
             </li>
             <li class="page-item" v-for="(row, id) in state.totalpages" :key="id" :class="isActive(id)"
@@ -14,7 +14,7 @@
             <li class="page-item">
                 <a class="page-link" @click="changePage(state.page + 1)" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
+                    <span class="sr-only"></span>
                 </a>
             </li>
         </ul>

@@ -4,24 +4,38 @@
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
-                        <div class="col-sm-8 row">
-                            <input type="date" class="form-control col-5" v-model="state.form.dateForm"
-                                :min="state.today">
-                            <select name="" id="" class="form-control col-5" v-model="state.form.turn">
-                                <!-- <option value="lunch" selected="true" disabled="disabled" hidden>Turn</option> -->
-                                <option value="lunch">Lunch</option>
-                                <option value="dinner">Dinner</option>
-                            </select>
+                        <div class="col-sm-4 row">
+                            <div class="mb-2">
+                                <label for="date" class="form-label">Date:</label>
+                                <input type="date" name="date" id="date" class="form-control col-5"
+                                    v-model="state.form.dateForm" :min="state.today">
+                            </div>
+                            <div class="mb-3">
+                                <label for="turn" class="form-label">Turn:</label>
+                                <select name="turn" id="turn" class="form-control col-5" v-model="state.form.turn">
+                                    <!-- <option value="lunch" selected="true" disabled="disabled" hidden>Turn</option> -->
+                                    <option value="lunch">Lunch</option>
+                                    <option value="dinner">Dinner</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-sm-4">
+
+                        <div class="col-sm-4 mt-2">
+                            Minimal Capacity:
+                            <input type="number" class="form-control col-5" v-model="state.capacity"
+                                :min="state.capacity" @change="applyFilter">
+
                         </div>
                     </div>
                 </div>
                 <div class="row justify-content-around">
                     <ListTables v-for="tableitem in state.tableslist.tables" :key="tableitem.id" :tableitem="tableitem"
                         @reservetable="reserve" />
+                    <h1 v-if="state.tableslist.tables.length == 0">No tables available</h1>
                 </div>
-                <Pagination :totalpages="state.totalpages" @changepage="loadnewtables" />
+                <div v-if="state.totalpages != 0">
+                    <Pagination :totalpages="state.totalpages" @changepage="loadnewtables" />
+                </div>
 
             </div>
         </div>
@@ -42,7 +56,7 @@ export default {
     setup() {
         const toaster = createToaster({ position: "top" });
         const store = useStore();
-        store.dispatch("tableClient/" + Constant.GET_ALL_TABLES);
+        store.dispatch("tableClient/" + Constant.GET_ALL_TABLES, { offset: 0, limit: 6, capacity: 4 });
 
 
         const state = reactive({
@@ -54,23 +68,26 @@ export default {
             },
             today: new Date(),
             totalpages: 0,
+            capacity: 4
         });
 
         state.today.setDate(state.today.getDate() + 1);
         state.today = state.today.toISOString().split('T')[0];
 
         setTimeout(() => {
-            // console.log(state.tableslist.length);
-            state.totalpages = computed(() => Math.ceil(store.getters["tableClient/getTable"].length / 6));
-            // console.log(state.totalpages);
-        }, 100);
+            state.totalpages = Math.ceil(state.tableslist.count / 6);
+        }, 200);
 
+        const applyFilter = () => {
+            store.dispatch("tableClient/" + Constant.GET_ALL_TABLES, { offset: 0, limit: 6, capacity: state.capacity });
+            setTimeout(() => {
+                state.totalpages = Math.ceil(state.tableslist.count / 6);
+            }, 200);
+        }
 
         const loadnewtables = (page) => {
             console.log(page);
-            // state.show_tablelist = computed(() =>
-            //     state.save_tablelist.slice(page * 6, page * 6 + 6)
-            // );
+            store.dispatch("tableClient/" + Constant.GET_ALL_TABLES, { offset: 6 * page, limit: 6, capacity: state.capacity });
         }
 
         const reserve = (id) => {
@@ -89,7 +106,7 @@ export default {
             }
         }
 
-        return { state, loadnewtables, reserve };
+        return { state, loadnewtables, reserve, applyFilter };
     },
 };
 </script>

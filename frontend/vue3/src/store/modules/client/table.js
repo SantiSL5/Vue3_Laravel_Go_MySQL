@@ -16,8 +16,8 @@ export const tableClient = {
         },
     },
     actions: {
-        [Constant.GET_ALL_TABLES]: (store) => {
-            TableService.getAllTables().then(data => {
+        [Constant.GET_ALL_TABLES]: (store, payload) => {
+            TableService.getAllTables(payload).then(data => {
                 store.commit(Constant.GET_ALL_TABLES, data.data);
             });
         },
