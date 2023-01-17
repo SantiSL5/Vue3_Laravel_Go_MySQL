@@ -1,7 +1,7 @@
 package User
 
 import (
-	"fmt"
+	// "fmt"
 	"net/http"
 	"os"
 	"strings"
@@ -21,7 +21,7 @@ func UpdateContextUserModel(c *gin.Context, id uint) {
 
 func stripBearerPrefixFromBearerString(tok string) (string, error) {
 	if len(tok) > 5 && strings.ToUpper(tok[0:7]) == "BEARER " {
-		fmt.Println("el bearer es:" + tok[7:])
+		// fmt.Println("el bearer es:" + tok[7:])
 		return tok[7:], nil
 	}
 	return tok, nil

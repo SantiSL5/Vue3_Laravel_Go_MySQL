@@ -12,8 +12,10 @@ func Profile(c *gin.Context) {
 	if valid {
 		serializer := UserSerializer{c, u}
 		c.JSON(http.StatusOK, serializer.Response())
+	} else {
+		c.JSON(http.StatusUnauthorized, "Unauthorized")
 	}
-
+	
 }
 
 func Register(c *gin.Context) {

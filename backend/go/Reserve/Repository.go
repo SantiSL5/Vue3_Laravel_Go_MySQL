@@ -3,23 +3,36 @@ package Reserve
 import (
 	"fmt"
 	"namazu/Config"
+	"namazu/User"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
 //GetAllReserves Fetch all reserve data
-func GetAllReservesRepo(c *gin.Context) []ReserveModel {
+// func GetAllReservesRepo(c *gin.Context) []ReserveModel {
+
+// 	var reserves []ReserveModel
+
+// 	if err := Config.DB.Preload("TableContent").Preload("UserContent").Find(&reserves).Error; err != nil {
+// 		c.AbortWithStatus(http.StatusNotFound)
+// 		fmt.Println("Status:", err)
+// 	}
+
+// 	return reserves
+// }
+
+func GetReservesUserRepo(c *gin.Context, u User.UserModel) []ReserveModel {
 
 	var reserves []ReserveModel
 
-	if err := Config.DB.Preload("TableContent").Preload("UserContent").Find(&reserves).Error; err != nil {
+	if err := Config.DB.Preload("TableContent").Preload("UserContent").Where("user = ?", u.Id).Find(&reserves).Error; err != nil {
 		c.AbortWithStatus(http.StatusNotFound)
 		fmt.Println("Status:", err)
 	}
-
 	return reserves
 }
+
 
 func GetOneReserveRepo(id int, c *gin.Context) (ReserveModel, error) {
 
@@ -46,7 +59,12 @@ func GetOneReserveRepo(id int, c *gin.Context) (ReserveModel, error) {
 // 	return reserve, err
 // }
 
-func CreateReserveRepo(reserve *ReserveModel, c *gin.Context) (error,bool) {
+// func CreateReserveRepo(reserve *ReserveModel, c *gin.Context) (err error, exist bool) {
+// 	err = Config.DB.Create(reserve).Error
+// 	return err, false
+// }
+
+func CreateReserveRepo(reserve *ReserveModel, c *gin.Context) (error,bool)  {
 	err := Config.DB.Create(reserve).Error
 	fmt.Println(err.Error())
 	if err != nil {
