@@ -1,19 +1,16 @@
 import Constant from "../../../Constant";
-import ReservationService from "../../../services/admin/ReservationService";
-import { createToaster } from "@meforma/vue-toaster"; // Debería estar en el componente
+import ReservationService from "../../../services/client/ReservationService";
+// import { createToaster } from "@meforma/vue-toaster"; // Debería estar en el componente
 
-export const reservationAdmin = {
+export const reservationClient = {
     namespaced: true,
 
     state: {
 
     },
     mutations: {
-        [Constant.CREATE_ONE_RESERVATION]: (state, payload) => {
-            state.reservationslist.push({ ...payload });
-        },
-        [Constant.GET_ONE_RESERVATION]: (state) => {
-            state.allUsers;
+        [Constant.GET_ALL_RESERVATIONS]: (state, payload) => {
+            state.reservationslist = payload;
         },
         [Constant.DELETE_ONE_RESERVATION]: (state, payload) => {
             let index = state.reservationslist.findIndex(
@@ -23,21 +20,11 @@ export const reservationAdmin = {
         },
     },
     actions: {
-        [Constant.CREATE_ONE_RESERVATION]: (store, payload) => {
-            ReservationService.createReservation(payload.reservation).then(data => {
-                const toaster = createToaster({ position: "top" });
-                if (data.statusText == "Created") {
-                    toaster.success(`Reservation created successfully`);
-                    store.commit(Constant.CREATE_ONE_RESERVATION, data.data);
-                } else {
-                    toaster.error(data.data.Message);
-                }
-            });
-        },
-        [Constant.GET_ONE_RESERVATION]: (store) => {
-            ReservationService.getReservationById().then(data => {
-                store.commit(Constant.GET_ONE_RESERVATION, data.data);
-            });
+        [Constant.GET_ALL_RESERVATIONS]: (store) => {
+            ReservationService.getClientReservations().then(data => {
+                store.commit(Constant.GET_ALL_RESERVATIONS, data.data);
+            }).catch(function () { });
+
         },
         [Constant.DELETE_ONE_RESERVATION]: (store, payload) => {
             ReservationService.deleteReservationById(payload.id).then(

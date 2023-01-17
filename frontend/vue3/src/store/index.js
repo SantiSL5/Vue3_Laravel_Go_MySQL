@@ -10,6 +10,8 @@ import { categoryClient } from './modules/client/category'
 import { tableClient } from './modules/client/table'
 import { dishClient } from './modules/client/dish'
 import { userClient } from './modules/client/user'
+import { reservationClient } from './modules/client/reservation'
+
 
 
 export default createStore({
@@ -31,5 +33,6 @@ export default createStore({
         tableClient: tableClient,
         dishClient: dishClient,
         userClient: userClient,
+        reservationClient: reservationClient,
     }
 });

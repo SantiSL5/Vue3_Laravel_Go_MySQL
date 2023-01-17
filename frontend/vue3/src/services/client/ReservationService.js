@@ -2,7 +2,7 @@ import Api from '@/services/Api'
 import secret from '../../Secret'
 
 export default {
-    getAllReservations() {
+    getClientReservations() {
         return Api(`${secret.GO_APP_URL}`).get(`reserve/`)
     },
     getReservationById(id) {
