@@ -95,7 +95,6 @@ export default {
         state.dayFormatted = state.dayFormatted[2] + "/" + state.dayFormatted[1] + "/" + state.dayFormatted[0];
 
         store.dispatch("tableClient/" + Constant.GET_ALL_TABLES, { offset: 0, limit: 6, capacity: 4, date: state.dayFormatted, turn: state.form.turn });
-        // store.dispatch("tableClient/" + Constant.GET_ALL_TABLES, { offset: 0, limit: 6, capacity: 4 });
 
         setTimeout(() => {
             state.totalpages = Math.ceil(state.tableslist.count / 6);
@@ -107,14 +106,19 @@ export default {
 
             store.dispatch("tableClient/" + Constant.GET_ALL_TABLES, { offset: 0, limit: 6, capacity: state.form.capacity, date: state.form.date, turn: state.form.turn, category: state.form.category });
 
+            state.totalpages = 0;
+            
             setTimeout(() => {
                 state.totalpages = Math.ceil(state.tableslist.count / 6);
             }, 200);
         }
 
         const loadnewtables = (page) => {
-            console.log(page);
-            store.dispatch("tableClient/" + Constant.GET_ALL_TABLES, { offset: 6 * page, limit: 6, capacity: state.form.capacity });
+            state.form.date = state.form.dateForm.split("-");
+            state.form.date = state.form.date[2] + "/" + state.form.date[1] + "/" + state.form.date[0];
+
+            console.log({ offset: 6 * page, limit: 6, capacity: state.form.capacity, date: state.form.date, turn: state.form.turn, category: state.form.category });
+            store.dispatch("tableClient/" + Constant.GET_ALL_TABLES, { offset: 6 * page, limit: 6, capacity: state.form.capacity, date: state.form.date, turn: state.form.turn, category: state.form.category });
         }
 
         const reserve = (id) => {
