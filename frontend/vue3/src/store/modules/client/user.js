@@ -56,9 +56,6 @@ export const userClient = {
                 image: payload.image,
                 type: payload.type,
             };
-            // if (!payload.redirect) {
-            //     router.push({ name: 'home' });
-            // }
         },
     },
     actions: {
@@ -67,18 +64,10 @@ export const userClient = {
                 if (data.status == 200) {
                     store.commit(Constant.REGISTER, payload);
                 }
-            })
-            // .catch(e => {
-            //     const toaster = createToaster({
-            //         position: "top"
-            //     });
-            //     console.log(e);
-            //     if (e["response"]["data"] == "Email is registered") {
-            //         toaster.error("Email already exists");
-            //     } else {
-            //         toaster.error("Error register");
-            //     }
-            // });
+            }).catch(function () {
+                const toaster = createToaster({ position: "top" });
+                toaster.error("Email already in use");
+            });
         },
         [Constant.LOGIN]: (store, payload) => {
             const toaster = createToaster({ position: "top" });
@@ -87,8 +76,7 @@ export const userClient = {
                     UserServiceAdmin.login(payload).then(data => {
                         toaster.success("Admin " + data.data.user.username + " loged successfully");
                         store.commit(Constant.LOGIN_ADMIN, data.data);
-                    }).catch(function (error) {
-                        console.log(error);
+                    }).catch(function () {
                         toaster.error("Error login Admin");
                     });
                 } else {
@@ -108,11 +96,11 @@ export const userClient = {
             if (localStorage.getItem('tokenAdmin')) {
                 UserServiceAdmin.profile().then(data => {
                     store.commit(Constant.PROFILE_USER, data.data);
-                }).catch(function () {});    
-            }else{
+                }).catch(function () { });
+            } else {
                 UserService.profile().then(data => {
                     store.commit(Constant.PROFILE_USER, data.data);
-                }).catch(function () {});    
+                }).catch(function () { });
             }
         },
         [Constant.LOGOUT]: (store) => {

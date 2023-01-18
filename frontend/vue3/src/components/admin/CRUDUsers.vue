@@ -102,7 +102,6 @@ export default {
         }
         const updateUser = (user = null) => {
             if (user) {
-                // const id = user.id;
                 user.enabled = !user.enabled;
 
                 store.dispatch("userAdmin/" + Constant.UPDATE_ONE_USER, { user: {enabled: user.enabled}, id: user.id });

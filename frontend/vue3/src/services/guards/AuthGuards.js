@@ -1,6 +1,5 @@
 import store from '../../store';
 import Constant from '../../Constant';
-// import UserService from '../client/UserService';
 import UserServiceAdmin from '../admin/UserService';
 
 export default {
@@ -20,19 +19,7 @@ export default {
         }
     },
 
-    async AuthGuard(to, from, next) {
-        if (localStorage.getItem('token')) {
-            await store.dispatch(`userClient/${Constant.PROFILE_USER}`);
-        }
-        if (store.getters['userClient/getAuth'] && localStorage.getItem('token')) {
-            next();
-        } else {
-            next('/home');
-        }
-    },
-
     noAuthGuard(to, from, next) {
-        // if (!store.getters['user/getAuth'] && !localStorage.getItem('isAuth')) {
         if (!localStorage.getItem('token') && !localStorage.getItem('tokenAdmin')) {
             next();
         } else {

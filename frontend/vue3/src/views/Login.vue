@@ -62,8 +62,6 @@ import Constant from "../Constant";
 import { reactive } from 'vue';
 import { useVuelidate } from '@vuelidate/core'
 import { required, email, minLength, maxLength } from '@vuelidate/validators'
-// import { useStore } from 'vuex';
-// import Constant from '../Constant';
 import { useStore } from "vuex";
 
 
@@ -159,10 +157,6 @@ export default {
                 delete state.registerForm.password2;
 
                 store.dispatch("userClient/" + Constant.REGISTER, state.registerForm);
-
-                // if (computed(() => store.getters["userClient/getUser"].name != "")) {
-                //     router.push({ name: 'home' })
-                // }
             }
         }
 

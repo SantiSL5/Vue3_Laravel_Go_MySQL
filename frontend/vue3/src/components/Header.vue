@@ -19,22 +19,16 @@
                     </li>
                 </ul>
                 <span class="navbar-text row">
-                    <!-- ////////// -->
                     <div class="col" v-if="state.auth.type == 'admin'">
                         <router-link class="nav-link" href="#" to="/admin">
                             <button type="button" class="btn btn-info">PanelAdmin</button>
                         </router-link>
                     </div>
-                    <!-- ////////// -->
                     <div class="col" v-if="state.auth.type == ''">
                         <router-link class="nav-link" href="#" to="/login">
                             <button type="button" class="btn btn-info">Login</button>
                         </router-link>
                     </div>
-
-                    <!-- <div class="col mt-2" v-if="state.auth.type != ''">
-                        <h6 class="col">{{ state.auth.username }}</h6>
-                    </div> -->
 
                     <div class="col" v-if="state.auth.type != ''">
                         <ul class="navbar-nav">
@@ -83,7 +77,8 @@
                                     <img class="img-fluid" v-if="reservation.confirmed == false"
                                         src="../assets/icons/x.svg" alt="NO" width="25">
                                 </td>
-                                <td><button type="button" class="btn-close"></button></td>
+                                <td><button type="button" class="btn-close"
+                                        @click="cancelReservation(reservation.id)"></button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -101,9 +96,11 @@
 import { reactive, computed } from "vue";
 import { useStore } from "vuex";
 import Constant from '../Constant';
+import { createToaster } from "@meforma/vue-toaster"; // Debería estar en el componente
 
 export default {
     setup() {
+        const toaster = createToaster({ position: "top" });
         const store = useStore()
         store.dispatch("userClient/" + Constant.PROFILE_USER)
         store.dispatch("reservationClient/" + Constant.GET_ALL_RESERVATIONS)
@@ -117,7 +114,13 @@ export default {
             store.dispatch("userClient/" + Constant.LOGOUT)
         }
 
-        return { state, logout };
+        const cancelReservation = (id) => {
+            store.dispatch("reservationClient/" + Constant.DELETE_ONE_RESERVATION, { id: id })
+            toaster.success(`Reserve cancelled`);
+        }
+
+
+        return { state, logout, cancelReservation };
     },
 };
 </script>

@@ -13,7 +13,6 @@ import InfiniteScroll from "../components/InfinteScroll.vue";
 import { useDishTypeInfinite } from "../composables/useDishTypes";
 import { reactive, computed } from "vue";
 import { useStore } from "vuex";
-// import { useRouter } from "vue-router";
 
 export default {
     components: { Carousel, InfiniteScroll },

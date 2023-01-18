@@ -1,6 +1,5 @@
 import Constant from "../../../Constant";
 import ReservationService from "../../../services/client/ReservationService";
-// import { createToaster } from "@meforma/vue-toaster"; // Debería estar en el componente
 
 export const reservationClient = {
     namespaced: true,
