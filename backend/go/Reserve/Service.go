@@ -2,6 +2,8 @@ package Reserve
 
 import (
 	"strconv"
+	"errors"
+	"fmt"
 	"namazu/User"
 	"namazu/Table"
 
@@ -46,4 +48,28 @@ func CreateReserveService(c *gin.Context) (error, bool){
 	err,reserve := CreateReserveRepo(&newReserve, c)
 
 	return err, reserve
+}
+
+func CancelReserveService(id string, c *gin.Context) error {
+
+	s, err := strconv.Atoi(id)
+	if err != nil {
+		println("error")
+	}
+	reserve,err:=GetOneReserveRepo(s, c)
+	if err != nil {
+		fmt.Println(reserve)
+		return errors.New("Reserve doesn't exist")
+	}
+	usr, _ := c.Get("user_model")
+	u, valid := usr.(User.UserModel)
+	if valid {
+		if reserve.User == u.Id {
+			err=CancelReserveRepo(s,c)
+			return err
+		}
+		return errors.New("Is not your reserve")
+	}
+
+	return err
 }

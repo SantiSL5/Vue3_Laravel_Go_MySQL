@@ -42,3 +42,12 @@ func CreateReserve(c *gin.Context) {
 		c.JSON(http.StatusOK, "Reserve created correctly")	
 	}
 }
+
+func CancelReserve(c *gin.Context) {
+	err := CancelReserveService(c.Param("id"), c)
+	if err != nil {
+		c.JSON(http.StatusOK, "Reserve canceled correctly")	
+	}else {
+		c.JSON(http.StatusNotFound,err.Error())
+	}
+}

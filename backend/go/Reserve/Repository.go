@@ -115,3 +115,13 @@ func CreateReserveRepo(reserve *ReserveModel, c *gin.Context) (error,bool)  {
 	return err, true
 	
 }
+
+func CancelReserveRepo(id int, c *gin.Context) error  {
+	var reserve ReserveModel
+	Config.DB.First(&reserve, id)
+	err := Config.DB.Delete(&reserve).Error
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	return err
+}

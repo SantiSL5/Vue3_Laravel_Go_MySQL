@@ -11,5 +11,6 @@ func ReserveRouting(router *gin.RouterGroup) {
 	router.GET("/", GetReservesUser)
 	router.GET(":id", GetReserveByID)
 	router.POST("/", CreateReserve)
+	router.DELETE(":id", CancelReserve)
 	router.Use(User.AuthMiddleware(false))
 }
