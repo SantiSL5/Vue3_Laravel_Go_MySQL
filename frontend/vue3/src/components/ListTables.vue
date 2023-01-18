@@ -22,8 +22,14 @@
                         @click.stop="viewCategory(tableitem.id)"> {{ tableitem.status }} </span> -->
                 </div>
             </div>
-            <div class="row justify-content-center mt-2">
-                <button type="button" class="btn btn-light col-6" @click.stop="reserve(tableitem.id)">Reserve</button>
+            <div class="row justify-content-center mt-2 ms-5">
+                <h6 class="col-7">Category: {{ tableitem.category }}</h6>
+            </div>
+            <div class="row justify-content-center">
+                <button v-if="tableitem.enabled == true" type="button" class="btn btn-light col-6"
+                    @click.stop="reserve(tableitem.id)">Reserve</button>
+                <button v-if="tableitem.enabled == false" type="button" class="btn btn-success col-6"
+                    @click.stop="reserve(tableitem.id)" disabled>Reserved</button>
             </div>
         </div>
     </div>
