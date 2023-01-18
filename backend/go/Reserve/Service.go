@@ -3,16 +3,17 @@ package Reserve
 import (
 	"strconv"
 	"namazu/User"
-	// "net/http"
-	// "namazu/Table"
-	// "fmt"
+	"namazu/Table"
 
 	"github.com/gin-gonic/gin"
 )
 
-// func GetAllReservesService(c *gin.Context) []ReserveModel {
-// 	return GetAllReservesRepo(c)
-// }
+func GetAllTablesService(c *gin.Context) ([]Table.TableModel,int) {
+	var tables []Table.TableModel
+	var count int
+	tables,count=GetAllTablesRepo(c)
+	return tables,count
+}
 
 func GetReservesUserService(c *gin.Context) []ReserveModel {
 	usr, _ := c.Get("user_model")
@@ -20,7 +21,6 @@ func GetReservesUserService(c *gin.Context) []ReserveModel {
 	if valid {
 		return GetReservesUserRepo(c,u)
 	}
-	// c.JSON(http.StatusUnauthorized, "Unauthorized")
 	return nil
 }
 
@@ -35,7 +35,6 @@ func GetOneReserveService(id string, c *gin.Context) (ReserveModel, error) {
 
 func CreateReserveService(c *gin.Context) (error, bool){
 	var newReserve ReserveModel
-	// var newUser User.UserModel
 	c.BindJSON(&newReserve)
 	usr, _ := c.Get("user_model")
 	u, valid := usr.(User.UserModel)

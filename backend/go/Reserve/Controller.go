@@ -2,17 +2,22 @@ package Reserve
 
 import (
 	"net/http"
-	// "time"
+	"namazu/Table"
 
 	"github.com/gin-gonic/gin"
 )
 
-// func GetReserves(c *gin.Context) {
-// 	var reserves []ReserveModel = GetAllReservesService(c)
-// 	serializer := ReservesSerializer{c, reserves}
+func GetTables(c *gin.Context) {
+	var tablas []Table.TableModel
+	var count int
+	tablas, count = GetAllTablesService(c)
+	serializer := Table.TablesSerializer{c, tablas}
 
-// 	c.JSON(http.StatusOK, serializer.Response())
-// }
+	c.JSON(http.StatusOK,gin.H{
+	  	"tables":serializer.Response(), 
+		"count": count,
+	})
+}
 
 func GetReserveByID(c *gin.Context) {
 	var reserve, err = GetOneReserveService(c.Param("id"), c)
@@ -29,8 +34,6 @@ func GetReservesUser(c *gin.Context) {
 	serializer := ReservesSerializer{c, reserves}
 
 	c.JSON(http.StatusOK, serializer.Response())
-	// tm := time.Now() 
-	// c.JSON(http.StatusOK, tm)
 }
 
 func CreateReserve(c *gin.Context) {

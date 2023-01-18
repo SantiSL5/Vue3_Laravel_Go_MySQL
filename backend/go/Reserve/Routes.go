@@ -6,6 +6,7 @@ import (
 )
 
 func ReserveRouting(router *gin.RouterGroup) {
+	router.GET("/tables", GetTables)
 	router.Use(User.AuthMiddleware(true))
 	router.GET("/", GetReservesUser)
 	router.GET(":id", GetReserveByID)

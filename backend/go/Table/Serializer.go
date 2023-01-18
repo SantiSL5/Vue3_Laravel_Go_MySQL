@@ -22,7 +22,7 @@ type TableSerializer struct {
 
 type TablesSerializer struct {
 	C      *gin.Context
-	tables []TableModel
+	Tables []TableModel
 }
 
 func (ss *TableSerializer) Response() TableResponse {
@@ -41,7 +41,7 @@ func (ss *TableSerializer) Response() TableResponse {
 func (ss *TablesSerializer) Response() []TableResponse {
 	response := []TableResponse{}
 
-	for _, table := range ss.tables {
+	for _, table := range ss.Tables {
 		serializer := TableSerializer{ss.C, table}
 		response = append(response, serializer.Response())
 	}

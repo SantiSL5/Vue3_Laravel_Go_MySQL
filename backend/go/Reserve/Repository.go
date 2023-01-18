@@ -4,23 +4,80 @@ import (
 	"fmt"
 	"namazu/Config"
 	"namazu/User"
+	"namazu/Table"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
-//GetAllReserves Fetch all reserve data
-// func GetAllReservesRepo(c *gin.Context) []ReserveModel {
+func GetReservesDayTurn(c *gin.Context, date string, turn string) []uint {
+	var reserves []ReserveModel
+	var ids []uint
+	fmt.Println(date)
+	if err := Config.DB.Preload("TableContent").Preload("TableContent").Raw("SELECT * FROM reserves WHERE date = ? AND turn = ?", date, turn).Find(&reserves).Error; err != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+		fmt.Println("Status:", err)
+	}
+	for _, reserve := range reserves {
+		ids = append(ids, reserve.Table)
+	}
+	return ids
+}
 
-// 	var reserves []ReserveModel
+func GetAllTablesRepo(c *gin.Context) (tables []Table.TableModel, count int) {
+	var countTables []Table.TableModel
+	var ids []uint
+	limitV, limit := c.GetQuery("limit")
+	offsetV, offset := c.GetQuery("offset")
+	capacityV, capacity := c.GetQuery("capacity")
+	categoryV, category := c.GetQuery("category")
+	dateV, date := c.GetQuery("date")
+	turnV, turn := c.GetQuery("turn")
+	if date && turn {
+		ids=GetReservesDayTurn(c,dateV,turnV)
+		if len(ids) == 0 {
+			ids=[]uint{0}
+		}
+		if limit && limitV != "undefined" && offset && capacity {
+			count := 0
+			if category {
+				if err := Config.DB.Preload("CategoryContent").Where("enabled = ? AND capacity >= ? AND category = ? AND id NOT IN(?)", true,  capacityV, categoryV, ids).Limit(limitV).Offset(offsetV).Find(&tables).Error; err != nil {
+					c.AbortWithStatus(http.StatusNotFound)
+					fmt.Println("Status:", err)
+				}
+				if err := Config.DB.Preload("CategoryContent").Where("enabled = ? AND capacity >= ? AND category = ? AND id NOT IN(?)", true,  capacityV, categoryV, ids).Find(&countTables).Error; err != nil {
+					c.AbortWithStatus(http.StatusNotFound)
+					fmt.Println("Status:", err)
+				}
+			}else {
+				if err := Config.DB.Preload("CategoryContent").Where("enabled = ? AND capacity >= ? AND id NOT IN(?)", true,  capacityV, ids).Limit(limitV).Offset(offsetV).Find(&tables).Error; err != nil {
+					c.AbortWithStatus(http.StatusNotFound)
+					fmt.Println("Status:", err)
+				}
+				if err := Config.DB.Preload("CategoryContent").Where("enabled = ? AND capacity >= ? AND id NOT IN(?)", true, capacityV, ids).Find(&countTables).Error; err != nil {
+					c.AbortWithStatus(http.StatusNotFound)
+					fmt.Println("Status:", err)
+				}
+			}
+			count= len(countTables)
+			return tables, count
+		} else {
+			if err := Config.DB.Preload("CategoryContent").Where("enabled = ?", true).Find(&tables).Error; err != nil {
+				c.AbortWithStatus(http.StatusNotFound)
+				fmt.Println("Status:", err)
+			}
+			if err := Config.DB.Preload("CategoryContent").Where("enabled = ?", true).Find(&countTables).Error; err != nil {
+				c.AbortWithStatus(http.StatusNotFound)
+				fmt.Println("Status:", err)
+			}
+			count= len(countTables)
+			return tables, count
+		}
 
-// 	if err := Config.DB.Preload("TableContent").Preload("UserContent").Find(&reserves).Error; err != nil {
-// 		c.AbortWithStatus(http.StatusNotFound)
-// 		fmt.Println("Status:", err)
-// 	}
+	}
+	return tables, count
+}
 
-// 	return reserves
-// }
 
 func GetReservesUserRepo(c *gin.Context, u User.UserModel) []ReserveModel {
 
@@ -46,23 +103,6 @@ func GetOneReserveRepo(id int, c *gin.Context) (ReserveModel, error) {
 
 	return reserve, err
 }
-
-// func CheckReserveRepo(reserve *ReserveModel, c *gin.Context) (ReserveModel, error) {
-// 	fmt.Println(reserve.Date)
-// 	err := Config.DB.Preload("UserContent").Where("table = ?",reserve.Table).Find(&reserve).Error
-
-// 	if err != nil {
-// 		fmt.Println(err.Error())
-// 		c.AbortWithStatus(http.StatusNotFound)
-// 	}
-
-// 	return reserve, err
-// }
-
-// func CreateReserveRepo(reserve *ReserveModel, c *gin.Context) (err error, exist bool) {
-// 	err = Config.DB.Create(reserve).Error
-// 	return err, false
-// }
 
 func CreateReserveRepo(reserve *ReserveModel, c *gin.Context) (error,bool)  {
 	err := Config.DB.Create(reserve).Error
