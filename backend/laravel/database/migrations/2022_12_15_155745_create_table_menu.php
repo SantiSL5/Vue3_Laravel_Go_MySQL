@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id("id");
             $table->timestamps();
             $table->string("dish")->unique();
-            $table->foreignId('type')->constraint('dish_type');
+            $table->foreignId('type')->constraint('dish_type')->onDelete("cascade");
             $table->float("price");
             $table->string("desc");
             $table->string("photo");

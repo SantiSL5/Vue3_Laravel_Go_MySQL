@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('reserves', function (Blueprint $table) {
             $table->id("id");
-            $table->foreignId('user')->constraint('user');
-            $table->foreignId('table')->constraint('table');
+            $table->foreignId('user')->constraint('user')->onDelete("cascade");
+            $table->foreignId('table')->constraint('table')->onDelete("cascade");
             $table->string("date");
             $table->string("turn");
             $table->boolean("confirmed");

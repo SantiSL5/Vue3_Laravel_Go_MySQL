@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id("id");
             $table->timestamps();
             $table->integer("code")->unique();
-            $table->foreignId('category')->constraint('category');
+            $table->foreignId('category')->constraint('category')->onDelete("cascade");
             $table->integer("capacity");
             $table->boolean("enabled");
         });
